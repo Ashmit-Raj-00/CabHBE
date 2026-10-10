@@ -1,0 +1,437 @@
+@import "tailwindcss";
+
+:root {
+  --color-ink: #141416;
+  --color-ink-mid: #4b4e57;
+  --color-ink-soft: #6f727b;
+  --color-bg: #ffffff;
+  --color-surface: #ffffff;
+  --color-border: #ece3e4;
+
+  /* Primary crimson, deep enough that white button text clears 4.5:1 contrast. */
+  --color-red: #b8162b;
+  --color-red-dark: #961224;
+  --color-red-tint: #fbeff0;
+
+  /* Brand stage: crimson with white type, used for every "stage" surface —
+     heroes, bands, footer. Token names kept from the original palette. */
+  --color-forest: #b8162b;
+  --color-forest-deep: #961224;
+  --color-cream: #ffffff;
+  --color-gold: #ffd6dc;
+
+  --color-cyan: #c8283d;
+  --color-cyan-dark: #961224;
+  --color-cyan-bright: #ffe1e5;
+  --color-cyan-tint: #fdf3f4;
+
+  /* Third accent: used for wayfinding and factual detail — dates, travel, stats. */
+  --color-blue: #a3162a;
+  --color-blue-dark: #7d1020;
+  --color-blue-bright: #f4b8c0;
+  --color-blue-tint: #fbeff0;
+
+  --color-wash: #fcf8f8;
+}
+
+@theme inline {
+  --color-ink: var(--color-ink);
+  --color-ink-mid: var(--color-ink-mid);
+  --color-ink-soft: var(--color-ink-soft);
+  --color-bg: var(--color-bg);
+  --color-surface: var(--color-surface);
+  --color-border: var(--color-border);
+
+  --color-red: var(--color-red);
+  --color-red-dark: var(--color-red-dark);
+  --color-red-tint: var(--color-red-tint);
+
+  --color-forest: var(--color-forest);
+  --color-forest-deep: var(--color-forest-deep);
+  --color-cream: var(--color-cream);
+  --color-gold: var(--color-gold);
+
+  --color-cyan: var(--color-cyan);
+  --color-cyan-dark: var(--color-cyan-dark);
+  --color-cyan-bright: var(--color-cyan-bright);
+  --color-cyan-tint: var(--color-cyan-tint);
+
+  --color-blue: var(--color-blue);
+  --color-blue-dark: var(--color-blue-dark);
+  --color-blue-bright: var(--color-blue-bright);
+  --color-blue-tint: var(--color-blue-tint);
+
+  --color-wash: var(--color-wash);
+
+  --font-heading: var(--font-lora);
+  --font-sans: var(--font-work-sans);
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@keyframes floaty {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-14px); }
+}
+.animate-floaty {
+  animation: floaty 7s ease-in-out infinite;
+}
+
+@keyframes pulsy {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+.animate-pulsy {
+  animation: pulsy 2.6s ease-in-out infinite;
+}
+
+@keyframes blob-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(70px, 50px) scale(1.12); }
+}
+@keyframes blob-b {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-60px, 70px) scale(1.08); }
+}
+@keyframes blob-c {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(50px, -60px) scale(1.1); }
+}
+.animate-blob-a { animation: blob-a 22s ease-in-out infinite; }
+.animate-blob-b { animation: blob-b 27s ease-in-out infinite; }
+.animate-blob-c { animation: blob-c 32s ease-in-out infinite; }
+
+/* Auto-scrolling marquee. The track holds the list twice; shifting it by exactly
+   one set (half the track, minus half a gap) loops seamlessly. */
+/* Position is driven every frame from JS (AdvisorMarquee) rather than a CSS
+   keyframe animation, so a scroll button press and the auto-scroll can share
+   one continuous offset instead of fighting over the transform property. */
+.marquee {
+  overflow: hidden;
+  cursor: grab;
+  mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+}
+.marquee:active {
+  cursor: grabbing;
+}
+.marquee-track {
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+  will-change: transform;
+}
+/* Under reduced motion the component still pages instantly on a button press or
+   drag — only the continuous ambient auto-scroll is turned off (in JS). */
+
+/* Speaker bio drops down over the portrait on hover. Touch devices get no hover,
+   so it stays tucked out of sight there and the caption below carries name and role. */
+.speaker-panel {
+  transform: translateY(-101%);
+  transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+/* Opened by the card's About button — works on touch, where hover never fires. */
+.speaker-card.is-open .speaker-panel {
+  transform: translateY(0);
+}
+@media (hover: hover) and (pointer: fine) {
+  .speaker-card:hover .speaker-panel,
+  .speaker-card:focus-within .speaker-panel {
+    transform: translateY(0);
+  }
+}
+
+/* Generic lift-on-hover for cards. Pointer-only so it never sticks on touch. */
+.hover-lift {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 28px -12px rgba(120, 20, 32, 0.18);
+  }
+}
+
+/* Background blobs: the animation (translate + scale) lives on the inner node;
+   this wrapper adds a mouse-parallax offset on top, so the two transforms compose
+   instead of one overwriting the other. */
+.blob-parallax {
+  transition: transform 0.3s ease-out;
+  will-change: transform;
+}
+
+/* Nav link underline that grows from the center on hover, and stays full for the active route. */
+.nav-link {
+  display: inline-block;
+}
+.nav-underline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transition: transform 0.25s ease;
+}
+.nav-link:hover .nav-underline {
+  transform: scaleX(1);
+}
+.nav-underline-active {
+  transform: scaleX(1);
+}
+
+/* ---------- Theme of Papers: concertina brochure ---------- */
+.book {
+  border-radius: 28px;
+  background:
+    radial-gradient(120% 80% at 50% 0%, #cc2a40 0%, transparent 60%),
+    #a3162a;
+  padding: 18px 14px;
+  box-shadow: 0 40px 80px -40px rgba(120, 20, 32, 0.55);
+}
+@media (min-width: 640px) {
+  .book { padding: 26px 26px 22px; }
+}
+.book-stage {
+  --pw: 250px;
+  --ph: 300px;
+  position: relative;
+  height: calc(var(--ph) * 1.3);
+  perspective: 1500px;
+  perspective-origin: 50% 45%;
+  overflow: hidden;
+  touch-action: pan-y;
+  cursor: grab;
+  border-radius: 18px;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent);
+}
+.book-stage:active { cursor: grabbing; }
+.book-stage:focus-visible { outline: 2px solid #ffffff; outline-offset: 4px; }
+@media (min-width: 640px) {
+  .book-stage { --pw: 300px; --ph: 350px; }
+}
+@media (min-width: 1024px) {
+  .book-stage { --pw: 330px; --ph: 385px; }
+}
+.book-world {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+.book-page {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--pw);
+  height: var(--ph);
+  transform-origin: 0 50%;
+  font-size: calc(var(--pw) * 0.05);
+  overflow: hidden;
+  box-shadow: 0 30px 50px -28px rgba(80, 8, 18, 0.7);
+  will-change: transform, opacity;
+  user-select: none;
+}
+.book-shade {
+  position: absolute;
+  inset: 0;
+  background: #5e0a16;
+  pointer-events: none;
+}
+
+/* Page bodies are sized in em, so they scale with --pw at every breakpoint. */
+.bp {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5em 1.55em 1.2em;
+}
+.bp-green { background: #b8162b; color: #ffffff; }
+.bp-cream { background: #ffffff; color: #1b1d17; }
+.bp-mast {
+  text-align: center;
+  font-size: 0.62em;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.bp-body { margin-block: auto; }
+.bp-eyebrow {
+  font-size: 0.66em;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #ffd6dc;
+}
+.bp-cream .bp-eyebrow { color: #b8162b; }
+.bp-title {
+  margin-top: 0.55em;
+  font-family: var(--font-lora), Georgia, serif;
+  font-weight: 500;
+  font-size: 1.62em;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+.bp-title-lg { font-size: 1.95em; }
+.bp-rule {
+  width: 2.2em;
+  height: 1px;
+  margin: 0.95em 0 0.85em;
+  background: currentColor;
+  opacity: 0.45;
+}
+.bp-text { font-size: 0.8em; line-height: 1.55; opacity: 0.85; }
+.bp-numeral {
+  margin-top: 0.3em;
+  font-family: var(--font-lora), Georgia, serif;
+  font-size: 2.9em;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.bp-numeral-label {
+  margin-top: 0.3em;
+  font-size: 0.7em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+.bp-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1em;
+  font-size: 0.56em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.68;
+}
+.bp-folio { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.bp-photo { padding: 0; background: #b8162b; }
+.bp-photo-cap {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 3.2em 1.4em 1.1em;
+  background: linear-gradient(to top, rgba(130, 12, 28, 0.88), transparent);
+  color: #fff;
+  font-family: var(--font-lora), Georgia, serif;
+  font-size: 1.05em;
+  line-height: 1.2;
+}
+.bp-photo-cap span {
+  display: block;
+  margin-bottom: 0.35em;
+  font-family: var(--font-work-sans), system-ui, sans-serif;
+  font-size: 0.58em;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #ffd6dc;
+}
+
+/* Brochure controls */
+.book-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+.book-round {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.book-round:hover { background: rgba(255, 255, 255, 0.12); border-color: rgba(255, 255, 255, 0.55); }
+.book-round:focus-visible,
+.book-track:focus-visible { outline: 2px solid #ffffff; outline-offset: 2px; }
+.book-track {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 14px 0 6px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+@media (max-width: 639px) {
+  .book-track { padding: 0 6px; }
+}
+.book-track:hover { color: #ffffff; border-color: rgba(255, 255, 255, 0.5); }
+.book-track-num {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  font-variant-numeric: tabular-nums;
+}
+.book-track.is-active { background: #ffffff; color: #b8162b; border-color: #ffffff; }
+.book-track.is-active .book-track-num { background: #b8162b; color: #ffffff; }
+
+/* ---------- Motion ---------- */
+
+/* Hero copy rises into place on first load, one line after another. */
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-in > * {
+  animation: rise-in 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+.hero-in > :nth-child(2) { animation-delay: 0.1s; }
+.hero-in > :nth-child(3) { animation-delay: 0.2s; }
+.hero-in > :nth-child(4) { animation-delay: 0.3s; }
+.hero-card-in {
+  animation: rise-in 0.9s 0.35s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+/* Children of a .stagger list fade up one after another once their section
+   (a Reveal wrapper, which sets data-reveal) scrolls into view. A keyframe with
+   "backwards" fill lets go of the element when it ends, so hover-lift effects
+   keep their own transitions afterwards. */
+[data-reveal="hidden"] .stagger > * {
+  opacity: 0;
+}
+[data-reveal="visible"] .stagger > * {
+  animation: rise-in 0.65s cubic-bezier(0.22, 0.61, 0.36, 1) backwards;
+}
+[data-reveal="visible"] .stagger > :nth-child(2) { animation-delay: 0.08s; }
+[data-reveal="visible"] .stagger > :nth-child(3) { animation-delay: 0.16s; }
+[data-reveal="visible"] .stagger > :nth-child(4) { animation-delay: 0.24s; }
+[data-reveal="visible"] .stagger > :nth-child(5) { animation-delay: 0.32s; }
+[data-reveal="visible"] .stagger > :nth-child(6) { animation-delay: 0.4s; }
+[data-reveal="visible"] .stagger > :nth-child(n + 7) { animation-delay: 0.46s; }
+
+/* ---------- Phone ---------- */
+
+/* Horizontal swipe rows (fee cards) — hide the scrollbar, keep the scrolling. */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
