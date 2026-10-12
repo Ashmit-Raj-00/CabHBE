@@ -11,7 +11,7 @@ import {
   event,
   trustBadges,
   university,
-} from "@/lib/data";
+} from "@/content";
 
 export const metadata: Metadata = {
   title: "About & Committee — CABHBE-26",

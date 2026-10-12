@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { PageHero, Section, SectionHeading } from "@/components/Section";
 import { MailIcon, WhatsappIcon, PinIcon } from "@/components/icons";
-import { event } from "@/lib/data";
-import { faqs } from "@/lib/faq";
+import { event, faqs } from "@/content";
 
 export const metadata: Metadata = {
   title: "Contact & FAQ — CABHBE-26",

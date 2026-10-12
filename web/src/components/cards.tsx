@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { CountUp } from "./CountUp";
-import { earlyBirdDeadline, type FeeTier } from "@/lib/data";
+import { earlyBirdDeadline, type FeeTier } from "@/content";
 
 export function StatCard({ value, label }: { value: string; label: string }) {
   return (

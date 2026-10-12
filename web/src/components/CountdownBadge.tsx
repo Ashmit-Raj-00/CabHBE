@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { event } from "@/lib/data";
+import { event } from "@/content";
 
 export function CountdownBadge({ compact = false }: { compact?: boolean }) {
   const [daysLeft, setDaysLeft] = useState<number | null>(null);

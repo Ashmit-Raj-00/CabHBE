@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import type { Advisor } from "@/lib/data";
+import type { Advisor } from "@/content";
 
 function initials(name: string) {
   const parts = name

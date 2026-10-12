@@ -1,13 +1,24 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// FAQ — questions and answers on the Contact page.
+//
+// Dates, rates, the email address and WhatsApp numbers are filled in from the
+// other content files (the ${...} parts), so they never go out of date here.
+// To add a question, copy a { question, answer } block.
+// ─────────────────────────────────────────────────────────────────────────────
+
+import { formatDate } from "@/lib/dates";
+import { dates, earlyBirdDeadline, event } from "./conference";
+import { accommodation } from "./venue";
+
 export const faqs = [
   {
-    question: "Who can register for CABHBE-26?",
+    question: `Who can register for ${event.shortName}?`,
     answer:
       "Academicians, research scholars, industry and R&D professionals, students, and international delegates are all welcome. Registration categories and fees vary by group — see the Registration page for details.",
   },
   {
     question: "How do I submit an abstract or paper?",
-    answer:
-      "Email your abstract, short paper, or full manuscript to conferencebiotech@giet.edu, following the formatting guidelines on the Call for Papers page (250–300 words, Arial 12pt for the body, Arial 14pt bold for the title). Only registered participants may present.",
+    answer: `Email your abstract, short paper, or full manuscript to ${event.submissionEmail}, following the formatting guidelines on the Call for Papers page (250–300 words, Arial 12pt for the body, Arial 14pt bold for the title). Only registered participants may present.`,
   },
   {
     question: "Do I need to register before submitting an abstract?",
@@ -16,23 +27,19 @@ export const faqs = [
   },
   {
     question: "What are the important deadlines?",
-    answer:
-      "Abstract submission closes 15 November 2026 and notification of acceptance follows on 20 November 2026. Full papers are due 30 November 2026, which is also the last day for early-bird registration. Spot registration is available at the venue.",
+    answer: `Abstract submission closes ${formatDate(dates.abstractDeadline)} and notification of acceptance follows on ${formatDate(dates.acceptanceNotice)}. Full papers are due ${formatDate(dates.fullPaperDeadline)}, and early-bird registration closes ${earlyBirdDeadline.label}. Spot registration is available at the venue.`,
   },
   {
     question: "How do I pay the registration fee?",
-    answer:
-      "Pay by bank / online transfer to the account shown on the Registration page, then enter your transaction ID and date in the registration form. If you register offline, send a scan of the completed form with proof of payment to conferencebiotech@giet.edu. The organizing committee verifies each payment and confirms by email.",
+    answer: `Pay by bank / online transfer to the account shown on the Registration page, then enter your transaction ID and date in the registration form. If you register offline, send a scan of the completed form with proof of payment to ${event.submissionEmail}. The organizing committee verifies each payment and confirms by email.`,
   },
   {
     question: "What if I register after the early-bird deadline?",
-    answer:
-      "You can still register — the standard (after 30 November 2026) fee applies instead of the early-bird rate. See the fee table on the Registration page for exact amounts per category.",
+    answer: `You can still register — the standard (after ${earlyBirdDeadline.label}) fee applies instead of the early-bird rate. See the fee table on the Registration page for exact amounts per category.`,
   },
   {
     question: "Is accommodation available?",
-    answer:
-      "Yes. Limited on-campus student hostel accommodation is available from ₹600–800 per day on a first-come-first-served basis. Participants may also opt for a hotel in Gunupur (low budget: ₹1,000–1,200 per day) — contact the Organizing Secretary for help.",
+    answer: `Yes. Limited on-campus student hostel accommodation is available at ${accommodation.hostelRate} per day on a first-come-first-served basis. Participants may also opt for a hotel in Gunupur (low budget: ${accommodation.hotelRate} per day) — contact the Organizing Secretary for help.`,
   },
   {
     question: "How do I get to GIET University?",
@@ -51,7 +58,6 @@ export const faqs = [
   },
   {
     question: "Who do I contact with other questions?",
-    answer:
-      "Reach the organizing team at conferencebiotech@giet.edu or via WhatsApp at +91 94377 71065 or +91 94374 39725 — full contact details are at the top of this page.",
+    answer: `Reach the organizing team at ${event.submissionEmail} or via WhatsApp at ${event.whatsapp.join(" or ")} — full contact details are at the top of this page.`,
   },
 ];

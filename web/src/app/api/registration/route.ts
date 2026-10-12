@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { prisma } from "@/lib/prisma";
-import { registrationCategories } from "@/lib/data";
+import { event, registrationCategories } from "@/content";
 
 const registrationSchema = z.object({
   name: z.string().trim().min(2).max(200),
@@ -21,6 +20,11 @@ const registrationSchema = z.object({
   bankName: z.string().trim().max(100).optional(),
 });
 
+/**
+ * Registrations are appended to a Google Sheet by a small Apps Script web app
+ * (google-sheet/registrations.gs). The organizing committee reviews entries and
+ * marks payments verified directly in that sheet — there is no database.
+ */
 export async function POST(request: Request) {
   let body: unknown;
   try {
@@ -37,27 +41,37 @@ export async function POST(request: Request) {
     );
   }
 
-  const data = parsed.data;
+  const webhookUrl = process.env.GOOGLE_SHEET_WEBHOOK_URL;
+  if (!webhookUrl) {
+    if (process.env.NODE_ENV === "development") {
+      console.log("[registration] GOOGLE_SHEET_WEBHOOK_URL is not set — logged here only:", parsed.data);
+      return NextResponse.json({ ok: true }, { status: 201 });
+    }
+    console.error("[registration] GOOGLE_SHEET_WEBHOOK_URL is not set; registration was not saved.");
+    return NextResponse.json(
+      { error: `Online registration is temporarily unavailable. Please email ${event.submissionEmail}.` },
+      { status: 503 }
+    );
+  }
 
-  const registration = await prisma.registration.create({
-    data: {
-      name: data.name,
-      designation: data.designation,
-      gender: data.gender,
-      address: data.address,
-      phone: data.phone,
-      email: data.email,
-      category: data.category,
-      presentationType: data.presentationType,
-      paperTitle: data.paperTitle,
-      accommodationNeeded: data.accommodationNeeded,
-      paymentAmount: data.paymentAmount,
-      paymentCurrency: data.paymentCurrency,
-      transactionId: data.transactionId,
-      paymentDate: data.paymentDate ? new Date(data.paymentDate) : undefined,
-      bankName: data.bankName,
-    },
-  });
+  try {
+    const res = await fetch(webhookUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...parsed.data, secret: process.env.GOOGLE_SHEET_SECRET }),
+      signal: AbortSignal.timeout(20_000),
+    });
+    const result = await res.json().catch(() => null);
+    if (!res.ok || !result?.ok) {
+      throw new Error(result?.error ?? `Google Sheet responded with HTTP ${res.status}`);
+    }
+  } catch (err) {
+    console.error("[registration] Could not save to the Google Sheet:", err);
+    return NextResponse.json(
+      { error: `We couldn't save your registration. Please try again, or email ${event.submissionEmail}.` },
+      { status: 502 }
+    );
+  }
 
-  return NextResponse.json({ id: registration.id }, { status: 201 });
+  return NextResponse.json({ ok: true }, { status: 201 });
 }

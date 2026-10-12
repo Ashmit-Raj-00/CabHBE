@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { PageHero, Section, SectionHeading } from "@/components/Section";
 import { FeeCard } from "@/components/cards";
 import { RegistrationForm } from "@/components/RegistrationForm";
-import { bankDetails, earlyBirdDeadline, event, feeTiers } from "@/lib/data";
+import { bankDetails, earlyBirdDeadline, event, feeTiers } from "@/content";
 
 export const metadata: Metadata = {
   title: "Registration — CABHBE-26",

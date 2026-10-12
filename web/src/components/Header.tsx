@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { DnaIcon, MenuIcon, CloseIcon } from "./icons";
-import { event } from "@/lib/data";
+import { event } from "@/content";
 
 const navLinks = [
   { href: "/about", label: "About" },

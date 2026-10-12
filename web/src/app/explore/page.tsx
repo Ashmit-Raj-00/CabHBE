@@ -11,7 +11,7 @@ import {
   heritageHighlights,
   natureNotes,
   visitingNotes,
-} from "@/lib/data";
+} from "@/content";
 import { SauraFrieze } from "@/components/tribal-art";
 import { CountUp } from "@/components/CountUp";
 import { ArrowRightIcon, LeafIcon, PinIcon } from "@/components/icons";

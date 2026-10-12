@@ -1,23 +1,11 @@
 import type { Metadata } from "next";
 import { PageHero, Section } from "@/components/Section";
 import { DownloadIcon } from "@/components/icons";
+import { downloads } from "@/content";
 
 export const metadata: Metadata = {
   title: "Downloads — CABHBE-26",
 };
-
-const files = [
-  {
-    title: "Offline Registration Form",
-    description: "Print and fill this out by hand if you'd rather not use the online form.",
-    href: "/downloads/cabhbe26-registration-form.pdf",
-  },
-  {
-    title: "Abstract Template",
-    description: "A ready-to-use template matching the required formatting for abstract submissions.",
-    href: "/downloads/cabhbe26-abstract-template.pdf",
-  },
-];
 
 export default function DownloadsPage() {
   return (
@@ -30,7 +18,7 @@ export default function DownloadsPage() {
 
       <Section>
         <div className="stagger mx-auto grid max-w-3xl gap-5 sm:grid-cols-2">
-          {files.map((file) => (
+          {downloads.map((file) => (
             <a
               key={file.href}
               href={file.href}

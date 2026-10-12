@@ -9,6 +9,7 @@ import {
   useSyncExternalStore,
   type ReactNode,
 } from "react";
+import { dates, event } from "@/content";
 
 type Theme = {
   slug: string;
@@ -420,7 +421,7 @@ function PageBody({
     <div className="bp bp-green">
       <Masthead />
       <div className="bp-body">
-        <div className="bp-eyebrow">Call for papers · 2026</div>
+        <div className="bp-eyebrow">Call for papers · {dates.conferenceStart.slice(0, 4)}</div>
         <h3 className="bp-title bp-title-lg">Three tracks, one conference</h3>
         <div className="bp-rule" />
         <p className="bp-text">
@@ -429,7 +430,7 @@ function PageBody({
         </p>
       </div>
       <div className="bp-foot">
-        <span>10 – 12 December · Gunupur</span>
+        <span>{event.datesShort} · Gunupur</span>
         <Folio n={folio} total={total} />
       </div>
     </div>

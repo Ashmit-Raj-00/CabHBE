@@ -23,10 +23,11 @@ import {
   advisoryPanel,
   feeTiers,
   earlyBirdDeadline,
-} from "@/lib/data";
+  dates,
+} from "@/content";
+import { formatDate } from "@/lib/dates";
 
-const abstractDeadline =
-  importantDates.find((d) => d.label.includes("Abstract"))?.date ?? "";
+const abstractDeadline = formatDate(dates.abstractDeadline);
 
 export default function Home() {
   return (

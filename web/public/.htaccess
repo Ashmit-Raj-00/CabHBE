@@ -1,0 +1,9 @@
+# Settings for GoDaddy (Apache) hosting — uploaded together with the site.
+
+# Shows the site's own "page not found" page.
+ErrorDocument 404 /404.html
+
+# The favicon and link-preview image are PNG files without a .png extension.
+<FilesMatch "^(icon|apple-icon|opengraph-image)$">
+  ForceType image/png
+</FilesMatch>

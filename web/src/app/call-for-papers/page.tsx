@@ -3,7 +3,8 @@ import { PageHero, Section, SectionHeading } from "@/components/Section";
 import { Button } from "@/components/Button";
 import { ThemeBook } from "@/components/ThemeBook";
 import { CheckIcon, MailIcon } from "@/components/icons";
-import { event, themes, submissionGuidelines, importantDates } from "@/lib/data";
+import { dates, event, themes, submissionGuidelines, importantDates } from "@/content";
+import { formatDate } from "@/lib/dates";
 
 export const metadata: Metadata = {
   title: "Call for Papers — CABHBE-26",
@@ -22,7 +23,7 @@ export default function CallForPapersPage() {
         <SectionHeading title="Theme of Papers" subtitle="Choose the track that fits your work." />
         <ThemeBook
           themes={themes}
-          deadline={importantDates.find((d) => d.label.includes("Abstract"))?.date ?? ""}
+          deadline={formatDate(dates.abstractDeadline)}
           email={event.submissionEmail}
         />
       </Section>

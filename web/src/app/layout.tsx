@@ -5,6 +5,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { BackgroundBlobs } from "@/components/BackgroundBlobs";
 import { BackToTop } from "@/components/BackToTop";
+import { event, settings } from "@/content";
 
 const lora = Lora({
   variable: "--font-lora",
@@ -18,10 +19,9 @@ const workSans = Work_Sans({
   weight: ["400", "500", "600", "700"],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const siteUrl = settings.siteUrl;
 const title = "CABHBE-26 — International Conference on Biotechnology";
-const description =
-  "2nd International Conference on Advancement of Biotechnology in Healthcare, Bioproducts and Environmental Research. 10–12 December 2026, GIET University, Gunupur, Odisha.";
+const description = `${event.fullName}. ${event.dates}, ${event.venue}.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

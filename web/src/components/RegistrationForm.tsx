@@ -1,7 +1,13 @@
 "use client";
 
 import { useMemo, useState, type FormEvent } from "react";
-import { earlyBirdDeadline, feeTiers, registrationCategories } from "@/lib/data";
+import {
+  earlyBirdDeadline,
+  event as conference,
+  feeTiers,
+  registrationCategories,
+  settings,
+} from "@/content";
 
 const inputClass =
   "h-13 w-full min-w-0 rounded-lg border border-border bg-white px-4 text-base outline-none focus:border-red";
@@ -49,21 +55,39 @@ export function RegistrationForm() {
       bankName: String(form.get("bankName") ?? "") || undefined,
     };
 
-    const res = await fetch("/api/registration", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
+    const sheetUrl = settings.registrationSheetUrl;
+    if (!sheetUrl) {
+      if (process.env.NODE_ENV === "development") {
+        console.log("[registration] settings.registrationSheetUrl is empty — not saved:", payload);
+        setStatus("success");
+        return;
+      }
+      setErrorMessage(
+        `Online registration isn't open yet. Please email your details and payment proof to ${conference.submissionEmail}, or use the offline form on the Downloads page.`
+      );
+      setStatus("error");
+      return;
+    }
 
-    if (!res.ok) {
-      const data = await res.json().catch(() => ({}));
-      setErrorMessage(data.error ?? "Something went wrong. Please try again.");
+    try {
+      // Sent as plain text (no custom headers) so the browser can post straight to
+      // Google without a CORS preflight, which Apps Script cannot answer.
+      const res = await fetch(sheetUrl, { method: "POST", body: JSON.stringify(payload) });
+      const result = await res.json();
+      if (!result.ok) {
+        setErrorMessage(result.error ?? "Something went wrong. Please try again.");
+        setStatus("error");
+        return;
+      }
+    } catch {
+      setErrorMessage(
+        `We couldn't send your registration. Please check your connection and try again, or email ${conference.submissionEmail}.`
+      );
       setStatus("error");
       return;
     }
 
     setStatus("success");
-    event.currentTarget.reset();
   }
 
   if (status === "success") {

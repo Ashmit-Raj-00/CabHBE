@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { event } from "@/lib/data";
+import { event } from "@/content";
 import { MailIcon, WhatsappIcon } from "./icons";
 
 export function Footer() {

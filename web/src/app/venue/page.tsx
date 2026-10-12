@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import { PageHero, Section, SectionHeading } from "@/components/Section";
 import { Button } from "@/components/Button";
-import { accommodation, campusGallery, campusLocation, event } from "@/lib/data";
+import { accommodation, campusGallery, campusLocation, event } from "@/content";
 import {
   BuildingIcon,
   PinIcon,

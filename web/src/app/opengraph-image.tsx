@@ -1,7 +1,10 @@
 import { ImageResponse } from "next/og";
+import { event } from "@/content";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+// Rendered once at build time into a static file.
+export const dynamic = "force-static";
 
 export default function OpengraphImage() {
   return new ImageResponse(
@@ -63,7 +66,7 @@ export default function OpengraphImage() {
         </div>
 
         <div style={{ display: "flex", fontSize: 28, color: "#4A4A4A", marginBottom: 8 }}>
-          10 – 12 December 2026 · GIET University, Gunupur, Odisha
+          {`${event.dates} · ${event.venue}`}
         </div>
         <div style={{ display: "flex", fontSize: 24, color: "#B8162B", fontWeight: 600 }}>
           Department of Biotechnology · DBT-BIRAC E-YUVA Center
