@@ -2,20 +2,20 @@
 
 Next.js site for the 2nd International Conference on Advancement of Biotechnology in Healthcare, Bioproducts and Environmental Research, GIET University, Gunupur.
 
-There is **no database**:
+There is **no database and no server**:
 
 - All website text, dates, fees, people and photos live in **`src/content/`**.
-- Online registrations are saved to a **Google Sheet**, which the organizing committee uses to review entries and verify payments.
+- `npm run build` turns the site into plain HTML files in **`out/`**, which you upload to GoDaddy (or any web host).
+- Online registrations are sent straight from the visitor's browser to a **Google Sheet**, which the organizing committee uses to review entries and verify payments.
 
 ## Run it locally
 
 ```bash
 npm install
-cp .env.example .env.local   # optional; see "Registrations" below
-npm run dev                  # http://localhost:3000
+npm run dev      # http://localhost:3000
 ```
 
-If `GOOGLE_SHEET_WEBHOOK_URL` isn't set, `npm run dev` accepts test registrations and prints them in the terminal instead of saving them.
+While `registrationSheetUrl` in `src/content/settings.ts` is empty, `npm run dev` accepts test registrations and prints them in the browser console instead of saving them.
 
 ## Editing content
 
@@ -23,6 +23,7 @@ Routine changes only touch files in `src/content/`. You don't need to edit pages
 
 | To change… | Edit |
 | --- | --- |
+| Website address, Google Sheet link | `settings.ts` |
 | Conference dates, paper deadlines, early-bird cutoff | `conference.ts` → `dates` |
 | Contact email, WhatsApp numbers, venue, conveners | `conference.ts` → `event` |
 | Registration fees and categories | `conference.ts` → `feeTiers` |
@@ -42,31 +43,39 @@ Tips:
 - Images go in `public/images/<folder>/` and are referenced as `"/images/<folder>/file.webp"`. Keep them under ~300 KB (`.webp` or `.jpg`).
 - Run `npm run build` before publishing. A typo such as a missing comma or a bad date stops the build with a message pointing at the line, so a mistake never reaches the live site.
 
-### Publishing a change
+## Publishing to GoDaddy
 
-The project is linked to the Vercel project `cabhbe-26`. From this folder:
+1. Build the site:
+   ```bash
+   npm run build
+   ```
+   This creates the `out/` folder: `index.html`, one folder per page, images, PDFs and a `.htaccess` file for GoDaddy.
+2. Zip the **contents** of `out/`, not the folder itself, so `index.html` sits at the top of the zip. On Linux/macOS, run `cd out && zip -r ../cabhbe26-website-upload.zip .`. On Windows, open `out`, select everything, then right-click → *Compress to ZIP file*.
+3. In GoDaddy **cPanel → File Manager**, open `public_html`. Delete or move any old site files there.
+4. **Upload** the zip into `public_html`, right-click it → **Extract** into `/public_html`, then delete the zip.
 
-```bash
-npx vercel --prod
-```
+To publish a change later, edit the content, then repeat these steps. Uploading a new version doesn't affect registrations already in the Google Sheet.
 
-The live site updates in about a minute. Registrations in the Google Sheet are not affected by redeploys.
+Notes:
+
+- The site must sit at the root of the domain (`yourdomain.com`), not a subfolder.
+- Set `siteUrl` in `settings.ts` to the real address before building, so link previews on WhatsApp and social media show the right picture.
+- To see hidden files like `.htaccess` in File Manager, open *Settings → Show Hidden Files*.
 
 ## Registrations (Google Sheet)
 
-How it works: the registration form posts to `/api/registration`, which checks the fields, then forwards them to a small Google Apps Script (`google-sheet/registrations.gs`). The script appends one row per registration to a **Registrations** tab.
+How it works: the registration form sends each registration from the visitor's browser to a small Google Apps Script (`google-sheet/registrations.gs`) attached to the sheet. The script checks the fields, then appends one row to a **Registrations** tab. If something is missing or invalid, the visitor sees which fields to fix.
+
+Until the sheet is connected, the form tells visitors to email their registration or use the offline form.
 
 ### One-time setup
 
 1. Using the committee's Google account, create a Google Sheet (e.g. "CABHBE-26 Registrations") and share it with the organizers.
-2. In the sheet, open **Extensions → Apps Script**. Delete the sample code and paste in all of `google-sheet/registrations.gs`.
-3. Generate a secret with `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`. Paste it as the `SECRET` value at the top of the script, then save.
-4. Click **Deploy → New deployment**, choose type **Web app**, and set *Execute as: Me* and *Who has access: Anyone*. Click **Deploy** and authorize access. Google shows an "unverified app" warning for your own scripts; choose *Advanced → Go to … (unsafe)*. Copy the **Web app URL** (it ends in `/exec`).
-5. Open that URL in a browser. It should say *"CABHBE-26 registration endpoint is running."*
-6. Give the website the URL and secret:
-   - Locally, put them in `.env.local` as `GOOGLE_SHEET_WEBHOOK_URL` and `GOOGLE_SHEET_SECRET`.
-   - On Vercel, run `npx vercel env add GOOGLE_SHEET_WEBHOOK_URL production` and `npx vercel env add GOOGLE_SHEET_SECRET production`, then `npx vercel --prod`.
-7. Submit a test registration on the site. A **Registrations** tab appears in the sheet with your row. Delete the test row afterwards.
+2. In the sheet, open **Extensions → Apps Script**. Delete the sample code, paste in all of `google-sheet/registrations.gs`, and save.
+3. Click **Deploy → New deployment**, choose type **Web app**, and set *Execute as: Me* and *Who has access: Anyone*. Click **Deploy** and authorize access. Google shows an "unverified app" warning for your own scripts; choose *Advanced → Go to … (unsafe)*. Copy the **Web app URL** (it ends in `/exec`).
+4. Open that URL in a browser. It should say *"CABHBE-26 registration endpoint is running."*
+5. Paste the URL into `registrationSheetUrl` in `src/content/settings.ts`, then build and upload the site again (see "Publishing to GoDaddy").
+6. Submit a test registration on the live site. A **Registrations** tab appears in the sheet with your row. Delete the test row afterwards.
 
 ### Day to day (organizers)
 
@@ -75,11 +84,3 @@ How it works: the registration form posts to `/api/registration`, which checks t
 - To export, use **File → Download → CSV / Microsoft Excel**.
 - Don't rename the **Registrations** tab or reorder its columns, because the script fills columns by position. You can add your own columns to the right.
 - If you edit the script later, go to **Deploy → Manage deployments → Edit (pencil) → Version: New version → Deploy**. The URL stays the same.
-
-## Environment variables
-
-| Name | Purpose |
-| --- | --- |
-| `GOOGLE_SHEET_WEBHOOK_URL` | Apps Script Web app URL that saves registrations |
-| `GOOGLE_SHEET_SECRET` | Shared secret; must match `SECRET` in the script |
-| `NEXT_PUBLIC_SITE_URL` | Public site URL, used for share images and links |
