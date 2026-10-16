@@ -8,7 +8,7 @@ export const settings = {
    * (e.g. "https://cabhbe26.com"). Used for the picture and title shown when
    * someone shares the link on WhatsApp, Facebook, LinkedIn…
    */
-  siteUrl: "https://web-bice-iota-82.vercel.app",
+  siteUrl: "https://cabhbe2026.vercel.app",
 
   /**
    * The Google Sheet script's Web app URL, which saves online registrations —

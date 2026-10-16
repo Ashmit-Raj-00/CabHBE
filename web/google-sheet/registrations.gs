@@ -28,7 +28,7 @@ const SETTINGS = {
   // Registrants reply to this address, and it receives a copy of each new registration.
   committeeEmail: "conferencebiotech@giet.edu",
   // The website, without a slash at the end — same as `siteUrl` in web/src/content/settings.ts.
-  website: "https://web-bice-iota-82.vercel.app",
+  website: "https://cabhbe2026.vercel.app",
   idPrefix: "CABHBE26",
   notifyCommittee: true,
   // true also emails the nightly Excel backup to the committee.
