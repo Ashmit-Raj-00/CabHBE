@@ -31,7 +31,7 @@ export const faqs = [
   },
   {
     question: "How do I pay the registration fee?",
-    answer: `Pay by bank / online transfer to the account shown on the Registration page, then enter your transaction ID and date in the registration form. If you register offline, send a scan of the completed form with proof of payment to ${event.submissionEmail}. The organizing committee verifies each payment and confirms by email.`,
+    answer: `Pay by bank / online transfer to the account shown on the Registration page, then enter your transaction ID and date in the registration form and attach a screenshot of the payment. You'll get an email with your registration ID straight away, and another once the organizing committee has verified your payment. If you register offline, send a scan of the completed form with proof of payment to ${event.submissionEmail}.`,
   },
   {
     question: "What if I register after the early-bird deadline?",

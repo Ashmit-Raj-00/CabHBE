@@ -64,23 +64,39 @@ Notes:
 
 ## Registrations (Google Sheet)
 
-How it works: the registration form sends each registration from the visitor's browser to a small Google Apps Script (`google-sheet/registrations.gs`) attached to the sheet. The script checks the fields, then appends one row to a **Registrations** tab. If something is missing or invalid, the visitor sees which fields to fix.
+How it works: the registration form sends each registration from the visitor's browser to a small Google Apps Script (`google-sheet/registrations.gs`) attached to the sheet. The script checks the fields, then:
 
-Until the sheet is connected, the form tells visitors to email their registration or use the offline form.
+- appends one row to a **Registrations** tab, with a registration ID like `CABHBE26-0001`
+- saves the payment screenshot or PDF, if one was attached, to a **CABHBE-26 Payment Proofs** folder in Google Drive and links it in the row
+- emails the registrant a confirmation with their registration ID, and emails the committee a copy
+- emails the registrant again when an organizer sets **Payment Status** to `VERIFIED` or `REJECTED`
+- saves an Excel (.xlsx) copy of the whole sheet to a **CABHBE-26 Backups** folder in Drive every night, keeping the last 30
+
+If something is missing or invalid, the visitor sees which fields to fix. Until the sheet is connected, the form tells visitors to email their registration or use the offline form.
+
+All emails are sent from the Google account that sets up the script, so use the committee's account (`conferencebiotech@giet.edu`). A Google Workspace account can send about 1,500 emails a day; a personal Gmail account only 100. Each registration uses two (registrant and committee), plus one when its payment is verified or rejected.
 
 ### One-time setup
 
-1. Using the committee's Google account, create a Google Sheet (e.g. "CABHBE-26 Registrations") and share it with the organizers.
+1. Signed in to the committee's Google account, create a Google Sheet (e.g. "CABHBE-26 Registrations") and share it with the organizers.
 2. In the sheet, open **Extensions → Apps Script**. Delete the sample code, paste in all of `google-sheet/registrations.gs`, and save.
-3. Click **Deploy → New deployment**, choose type **Web app**, and set *Execute as: Me* and *Who has access: Anyone*. Click **Deploy** and authorize access. Google shows an "unverified app" warning for your own scripts; choose *Advanced → Go to … (unsafe)*. Copy the **Web app URL** (it ends in `/exec`).
-4. Open that URL in a browser. It should say *"CABHBE-26 registration endpoint is running."*
-5. Paste the URL into `registrationSheetUrl` in `src/content/settings.ts`, then build and upload the site again (see "Publishing to GoDaddy").
-6. Submit a test registration on the live site. A **Registrations** tab appears in the sheet with your row. Delete the test row afterwards.
+3. Check the `SETTINGS` block at the top of the script, especially `committeeEmail` and `website`. Save again if you changed anything.
+4. In the toolbar's function list, pick **setup** and click **Run**. Google asks for access to Sheets, Drive and sending email. Google shows an "unverified app" warning for your own scripts; choose *Advanced → Go to … (unsafe)* → *Allow*. When it finishes, the log shows how many emails the account can send today.
+5. Click **Deploy → New deployment**, choose type **Web app**, and set *Execute as: Me* and *Who has access: Anyone*. Click **Deploy** and copy the **Web app URL** (it ends in `/exec`).
+6. Open that URL in a browser. It should say *"CABHBE-26 registration endpoint is running."*
+7. Paste the URL into `registrationSheetUrl` in `src/content/settings.ts`, then publish the site again (push to GitHub for Vercel, or see "Publishing to GoDaddy").
+8. Submit a test registration on the live site, using your own email and a small screenshot. Check that the row, the confirmation email, the committee email and the file in **CABHBE-26 Payment Proofs** all arrive. Then delete the test row. The next registration still gets a new ID, so real IDs may start at `CABHBE26-0002`.
+9. In Drive, share the **CABHBE-26 Payment Proofs** folder with the organizers who verify payments, so the links in the sheet open for them.
 
 ### Day to day (organizers)
 
-- New rows arrive with **Payment Status** set to `PENDING`. After checking the bank statement, change it with the dropdown to `VERIFIED` or `REJECTED`. Use **Admin Note** for anything else.
-- To get an email for each new registration, use **Tools → Notification settings → Edit notifications** in the sheet.
-- To export, use **File → Download → CSV / Microsoft Excel**.
+- New rows arrive with **Payment Status** set to `PENDING`. After checking the bank statement, change it with the dropdown to `VERIFIED` or `REJECTED`. **The registrant is emailed the moment you choose**, so double-check first. The **Status Email** column shows when it was sent. Choosing the same status again doesn't send a second email.
+- **Admin Note** is filled in automatically when a registration uses the same email or transaction ID as an earlier one, which usually means someone submitted twice. Use it for your own notes too; registrants never see it.
+- **Confirmation Email** shows whether the confirmation went out. If it says *Not sent*, the account probably hit its daily email limit; email that person by hand.
+- To export, use **File → Download → Microsoft Excel**, or open the latest file in **CABHBE-26 Backups**.
 - Don't rename the **Registrations** tab or reorder its columns, because the script fills columns by position. You can add your own columns to the right.
-- If you edit the script later, go to **Deploy → Manage deployments → Edit (pencil) → Version: New version → Deploy**. The URL stays the same.
+- If you edit the script later, go to **Deploy → Manage deployments → Edit (pencil) → Version: New version → Deploy**. The URL stays the same. Run **setup** again only if you changed the triggers.
+
+### Emails landing in spam
+
+Ask the person who manages giet.edu's DNS and Google Admin to add `include:_spf.google.com` to the domain's SPF record and to turn on DKIM signing (Google Admin → Apps → Google Workspace → Gmail → Authenticate email). Without these, mail sent from a giet.edu Google account is more likely to be marked as spam.

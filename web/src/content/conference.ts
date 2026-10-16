@@ -80,6 +80,9 @@ export const bankDetails = {
   ifsc: "SBIN0017769",
   accountName: "Gandhi Institute of Engineering Technology",
   accountNumber: "38307594449",
+  // Payment QR code shown next to the bank details, e.g. "/images/payment-qr.png" (put the image in
+  // public/images/). Leave empty ("") to hide the QR box.
+  qrImage: "",
 };
 
 export const themes = [
