@@ -15,5 +15,6 @@ export const settings = {
    * it ends in /exec. See README.md → "Registrations". While this is empty,
    * the registration form asks people to email their registration instead.
    */
-  registrationSheetUrl: "",
+  registrationSheetUrl:
+    "https://script.google.com/macros/s/AKfycbxyMYhjfHeJ7nHorS2V311qfcKUfhpeXk9wyLXwzkdGWwlbfPG6swbV050Igd7-d60/exec",
 };
