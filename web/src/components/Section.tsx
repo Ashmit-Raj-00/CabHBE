@@ -36,14 +36,27 @@ export function Section({
   );
 }
 
-export function PageHero({ eyebrow, title, subtitle }: { eyebrow?: string; title: string; subtitle?: string }) {
+export function PageHero({
+  eyebrow,
+  title,
+  subtitle,
+  compact = false,
+}: {
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  /** Less padding, for pages where the content below should start higher (e.g. a form). */
+  compact?: boolean;
+}) {
   return (
     <div className="relative overflow-hidden bg-forest">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(80%_90%_at_90%_0%,rgba(255,255,255,0.14),transparent_60%)]"
       />
-      <div className="hero-in relative mx-auto max-w-6xl px-6 py-9 sm:px-8 sm:py-16">
+      <div
+        className={`hero-in relative mx-auto max-w-6xl px-6 sm:px-8 ${compact ? "py-7 sm:py-10" : "py-9 sm:py-16"}`}
+      >
         {eyebrow && (
           <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-cream/30 bg-white/10 px-3.5 py-1.5 text-sm font-semibold text-cream/90 sm:mb-4 sm:px-4 sm:py-2">
             <span className="h-1.5 w-1.5 rounded-full bg-gold" aria-hidden />

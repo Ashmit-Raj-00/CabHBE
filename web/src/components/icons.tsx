@@ -136,6 +136,23 @@ export function ArrowRightIcon({ className, size = 24 }: IconProps) {
   );
 }
 
+export function ArrowLeftIcon({ className, size = 24 }: IconProps) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M20 12H5m0 0 5.5-5.5M5 12l5.5 5.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function CopyIcon({ className, size = 24 }: IconProps) {
+  return (
+    <svg {...base(size)} className={className}>
+      <rect x="8.5" y="8.5" width="11" height="11" rx="2" stroke="currentColor" strokeWidth="1.8" />
+      <path d="M15.5 8.5v-2a2 2 0 0 0-2-2h-7a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export function BuildingIcon({ className, size = 24 }: IconProps) {
   return (
     <svg {...base(size)} className={className}>
