@@ -36,38 +36,25 @@ export function Section({
   );
 }
 
-export function PageHero({
-  eyebrow,
-  title,
-  subtitle,
-  compact = false,
-}: {
-  eyebrow?: string;
-  title: string;
-  subtitle?: string;
-  /** Less padding, for pages where the content below should start higher (e.g. a form). */
-  compact?: boolean;
-}) {
+export function PageHero({ eyebrow, title, subtitle }: { eyebrow?: string; title: string; subtitle?: string }) {
   return (
     <div className="relative overflow-hidden bg-forest">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(80%_90%_at_90%_0%,rgba(255,255,255,0.14),transparent_60%)]"
       />
-      <div
-        className={`hero-in relative mx-auto max-w-6xl px-6 sm:px-8 ${compact ? "py-7 sm:py-10" : "py-9 sm:py-16"}`}
-      >
+      <div className="hero-in relative mx-auto max-w-6xl px-6 py-6 sm:px-8 sm:py-10">
         {eyebrow && (
-          <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-cream/30 bg-white/10 px-3.5 py-1.5 text-sm font-semibold text-cream/90 sm:mb-4 sm:px-4 sm:py-2">
+          <div className="mb-2.5 inline-flex items-center gap-2 rounded-full border border-cream/30 bg-white/10 px-3 py-1 text-sm font-semibold text-cream/90 sm:mb-3 sm:px-3.5 sm:py-1.5">
             <span className="h-1.5 w-1.5 rounded-full bg-gold" aria-hidden />
             {eyebrow}
           </div>
         )}
-        <h1 className="font-heading max-w-3xl text-[30px] leading-[1.15] text-cream sm:text-5xl sm:leading-tight">
+        <h1 className="font-heading max-w-3xl text-[27px] leading-[1.15] text-cream sm:text-[40px] sm:leading-tight">
           {title}
         </h1>
         {subtitle && (
-          <p className="mt-3 max-w-2xl text-lg text-cream/85 sm:mt-4 sm:text-xl">{subtitle}</p>
+          <p className="mt-2 max-w-2xl text-base text-cream/85 sm:mt-3 sm:text-lg">{subtitle}</p>
         )}
       </div>
     </div>

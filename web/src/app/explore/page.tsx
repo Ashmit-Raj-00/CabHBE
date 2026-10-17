@@ -30,20 +30,20 @@ export default function ExplorePage() {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 opacity-25">
           <SauraFrieze className="h-full w-full" />
         </div>
-        <div className="relative mx-auto grid max-w-6xl gap-10 px-6 pb-20 pt-10 sm:gap-12 sm:px-8 sm:py-24 lg:grid-cols-[1.15fr_1fr] lg:items-center">
+        <div className="relative mx-auto grid max-w-6xl gap-8 px-6 pb-16 pt-8 sm:gap-10 sm:px-8 sm:py-16 lg:grid-cols-[1.15fr_1fr] lg:items-center">
           <div className="hero-in">
-            <div className="mb-4 inline-flex rounded-full border border-white/25 px-4 py-2 text-sm font-semibold text-white/80">
+            <div className="mb-3 inline-flex rounded-full border border-white/25 px-3.5 py-1.5 text-sm font-semibold text-white/80">
               Beyond the conference hall
             </div>
-            <h1 className="font-heading text-[38px] leading-tight text-white sm:text-6xl">
+            <h1 className="font-heading text-[32px] leading-tight text-white sm:text-5xl">
               A land that still keeps its own <span className="text-cyan-bright">stories</span>
             </h1>
-            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/85 sm:text-xl">
+            <p className="mt-4 max-w-2xl text-lg leading-relaxed text-white/85">
               GIET University sits in Rayagada district, where the Eastern Ghats fold into some of
               India&apos;s oldest living cultures. Come for the conference — stay a day longer for
               the hills, the art and the people who never left their roots.
             </p>
-            <div className="mt-9 flex flex-wrap gap-4">
+            <div className="mt-7 flex flex-wrap gap-4">
               <Button href="#gallery" variant="outline-light">
                 Enter the Gallery
               </Button>
@@ -52,7 +52,7 @@ export default function ExplorePage() {
               </Button>
             </div>
           </div>
-          <figure className="hero-card-in mx-auto w-full max-w-sm lg:max-w-none">
+          <figure className="hero-card-in mx-auto w-full max-w-72 sm:max-w-sm lg:mr-0 lg:max-w-[400px]">
             <div className="relative aspect-5/6 w-full overflow-hidden rounded-[18px] border border-white/15 bg-white/95">
               <Image
                 src="/images/culture/saura-mandala.webp"

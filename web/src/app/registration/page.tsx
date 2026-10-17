@@ -14,7 +14,6 @@ export default function RegistrationPage() {
         eyebrow="Registration"
         title="Register for CABHBE-26"
         subtitle={`Three short steps. Early-bird rates apply until ${earlyBirdDeadline.label}.`}
-        compact
       />
 
       <Section className="bg-wash">
