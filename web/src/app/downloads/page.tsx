@@ -23,7 +23,7 @@ export default function DownloadsPage() {
               key={file.href}
               href={file.href}
               download
-              className="flex flex-col gap-3 rounded-2xl border border-border bg-white p-7 hover:border-red"
+              className="flex flex-col gap-3 rounded-2xl border border-border bg-white p-5 hover:border-red"
             >
               <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-red-tint text-red">
                 <DownloadIcon size={22} />
@@ -35,7 +35,7 @@ export default function DownloadsPage() {
           ))}
         </div>
 
-        <div className="mx-auto mt-5 max-w-3xl rounded-2xl border border-dashed border-border bg-bg p-7 text-center">
+        <div className="mx-auto mt-4 max-w-3xl rounded-2xl border border-dashed border-border bg-bg p-5 text-center">
           <div className="text-lg font-bold text-ink">Official Conference Brochure</div>
           <p className="mt-2 text-base text-ink-mid">
             Coming soon — check back closer to the event, or contact the organizing team for a copy.

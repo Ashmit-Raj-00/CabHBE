@@ -27,23 +27,23 @@ export default function VenuePage() {
 
       <Section>
         <SectionHeading title="The Campus" align="left" />
-        <div className="stagger grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
+        <div className="stagger grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
           {campusGallery.map((photo, index) => (
             <figure
               key={photo.src}
               className="overflow-hidden rounded-2xl border border-border bg-white"
             >
-              <div className="relative aspect-4/3 w-full">
+              <div className="relative aspect-3/2 w-full">
                 <Image
                   src={photo.src}
                   alt={photo.alt}
                   fill
-                  sizes="(min-width: 640px) 33vw, 50vw"
+                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
                   className="object-cover"
                   priority={index === 0}
                 />
               </div>
-              <figcaption className="px-3.5 py-3 text-sm font-semibold text-ink-mid">
+              <figcaption className="px-3 py-2 text-sm font-semibold text-ink-mid">
                 {photo.caption}
               </figcaption>
             </figure>
@@ -53,7 +53,7 @@ export default function VenuePage() {
 
       <Section className="border-t border-border bg-wash">
         <SectionHeading title="About GIET University" align="left" />
-        <div className="grid gap-8 lg:grid-cols-[1.3fr_1fr] lg:items-center">
+        <div className="grid gap-6 lg:grid-cols-[1.3fr_1fr] lg:items-center">
           <p className="text-lg leading-relaxed text-ink-mid">
             Gandhi Institute of Engineering and Technology University (GIETU) is a professionally
             managed, UGC &amp; AICTE-approved university established in 2018 under an Act of the
@@ -77,9 +77,9 @@ export default function VenuePage() {
       </Section>
 
       <Section className="border-t border-border">
-        <div className="grid gap-8 sm:gap-14 lg:grid-cols-[1fr_1.1fr]">
+        <div className="grid gap-6 sm:gap-10 lg:grid-cols-[1fr_1.1fr]">
           <div>
-            <h2 className="font-heading mb-4 text-3xl text-ink">Getting there</h2>
+            <h2 className="font-heading mb-3 text-[26px] leading-tight text-ink sm:text-[34px]">Getting there</h2>
             <p className="text-lg leading-relaxed text-ink-mid">
               Gunupur, Odisha sits in the Eastern Ghats — reach it by air or rail via
               Visakhapatnam, Bhubaneswar, or Rayagada, then a short road stretch in.
@@ -96,14 +96,14 @@ export default function VenuePage() {
             <iframe
               title="Map showing GIET University, Gunupur, Odisha"
               src={campusLocation.embedUrl}
-              className="h-80 w-full sm:h-96"
+              className="h-56 w-full sm:h-72"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
           </div>
         </div>
 
-        <div className="stagger mt-12 grid gap-6 sm:grid-cols-3">
+        <div role="region" aria-label="Ways to get here" tabIndex={0} className="stagger no-scrollbar -mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-2 focus-visible:outline-2 focus-visible:outline-red sm:mx-0 sm:grid sm:overflow-visible sm:px-0 sm:pb-0 mt-8 sm:grid-cols-3">
           <TravelCard
             icon={<PlaneIcon size={22} />}
             title="By Air"
@@ -134,8 +134,9 @@ export default function VenuePage() {
             ]}
           />
         </div>
+        <p className="mt-2 text-center text-sm font-semibold text-ink-soft sm:hidden">Swipe for more →</p>
 
-        <div className="mt-8 flex flex-col items-center justify-between gap-4 rounded-2xl border border-border bg-bg p-7 text-center sm:flex-row sm:text-left">
+        <div className="mt-6 flex flex-col items-center justify-between gap-3 rounded-2xl border border-border bg-bg p-5 text-center sm:flex-row sm:text-left">
           <div>
             <div className="text-lg font-bold text-ink">Need help planning your trip?</div>
             <p className="mt-1 text-base text-ink-mid">
@@ -150,15 +151,15 @@ export default function VenuePage() {
 
       <Section className="border-t border-border bg-wash">
         <SectionHeading title="Accommodation" align="left" />
-        <div className="stagger grid gap-5 sm:grid-cols-2">
-          <div className="rounded-2xl border border-border bg-bg p-7">
+        <div className="stagger grid gap-4 sm:grid-cols-2">
+          <div className="rounded-2xl border border-border bg-bg p-5">
             <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-tint text-blue">
               <BuildingIcon size={24} />
             </div>
             <div className="mb-2 text-lg font-bold text-ink">On-Campus Student Accommodation</div>
             <p className="text-base leading-relaxed text-ink-mid">{accommodation.onCampus}</p>
           </div>
-          <div className="rounded-2xl border border-border bg-bg p-7">
+          <div className="rounded-2xl border border-border bg-bg p-5">
             <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-red-tint text-red">
               <BuildingIcon size={24} />
             </div>
@@ -170,7 +171,7 @@ export default function VenuePage() {
 
       <Section className="border-t border-border">
         <div className="overflow-hidden rounded-[20px] border border-border bg-white">
-          <div className="relative h-44 w-full sm:h-56">
+          <div className="relative h-36 w-full sm:h-44">
             <Image
               src="/images/culture/niyamgiri-hills.webp"
               alt="Forested ridges of the Eastern Ghats rising behind paddy fields near Gunupur"
@@ -179,7 +180,7 @@ export default function VenuePage() {
               className="object-cover"
             />
           </div>
-          <div className="grid gap-6 p-8 sm:p-10 lg:grid-cols-[1.3fr_1fr] lg:items-center">
+          <div className="grid gap-5 p-6 sm:p-8 lg:grid-cols-[1.3fr_1fr] lg:items-center">
             <div>
               <div className="text-sm font-semibold uppercase tracking-wider text-red">
                 Beyond the conference hall
@@ -214,15 +215,15 @@ function TravelCard({
   routes: { name: string; meta: string }[];
 }) {
   return (
-    <div className="hover-lift overflow-hidden rounded-2xl border border-border bg-bg">
-      <div className="relative h-20 w-full overflow-hidden bg-blue-tint text-blue/50">
+    <div className="hover-lift w-[80%] shrink-0 snap-center sm:w-auto overflow-hidden rounded-2xl border border-border bg-bg">
+      <div className="relative h-14 w-full overflow-hidden bg-blue-tint text-blue/50">
         {illustration}
-        <div className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center rounded-xl bg-white text-blue shadow-sm">
+        <div className="absolute left-4 top-2 flex h-10 w-10 items-center justify-center rounded-xl bg-white text-blue shadow-sm">
           {icon}
         </div>
       </div>
-      <div className="p-5">
-        <div className="mb-3 text-lg font-bold text-ink">{title}</div>
+      <div className="p-4">
+        <div className="mb-2 text-lg font-bold text-ink">{title}</div>
         <ul className="space-y-2">
           {routes.map((route) => (
             <li

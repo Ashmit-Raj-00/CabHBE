@@ -30,7 +30,7 @@ export default function CallForPapersPage() {
 
       <Section className="border-t border-border bg-wash">
         <SectionHeading title="Submission &amp; Presentation Guidelines" align="left" />
-        <ul className="stagger mx-auto grid max-w-3xl gap-4">
+        <ul className="stagger grid gap-3 lg:grid-cols-2 lg:gap-x-10">
           {submissionGuidelines.map((line) => (
             <li key={line} className="flex items-start gap-3 text-base leading-relaxed text-ink-mid sm:text-lg">
               <CheckIcon size={22} className="mt-1 shrink-0 text-red" />
@@ -39,7 +39,7 @@ export default function CallForPapersPage() {
           ))}
         </ul>
 
-        <div className="mx-auto mt-10 flex max-w-3xl flex-col items-start gap-4 rounded-2xl border border-border bg-bg p-7 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-7 flex flex-col items-start gap-4 rounded-2xl border border-border bg-bg p-6 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <div className="text-lg font-bold text-ink">
               Attach your abstract when you register, or email it

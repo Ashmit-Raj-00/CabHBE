@@ -86,14 +86,14 @@ export default function ExplorePage() {
           title="A gallery of living art"
           subtitle="Four traditions still made by hand within a few hours of campus — for use, for worship, and for each other, rarely for sale."
         />
-        <div className="stagger grid gap-6 sm:grid-cols-2 sm:gap-8">
+        <div role="region" aria-label="Art gallery" tabIndex={0} className="stagger no-scrollbar -mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-2 focus-visible:outline-2 focus-visible:outline-red sm:mx-0 sm:grid sm:overflow-visible sm:px-0 sm:pb-0 sm:grid-cols-2 sm:gap-6">
           {artForms.map((art) => (
             <figure
               key={art.slug}
-              className="hover-lift group overflow-hidden rounded-[20px] border border-border bg-white"
+              className="hover-lift group w-[85%] shrink-0 snap-center sm:w-auto overflow-hidden rounded-[20px] border border-border bg-white"
             >
-              <div className="relative overflow-hidden border-b border-border bg-bg p-6">
-                <div className="relative h-60 w-full sm:h-72">
+              <div className="relative overflow-hidden border-b border-border bg-bg p-4">
+                <div className="relative h-44 w-full sm:h-52">
                   <Image
                     src={art.image}
                     alt={art.alt}
@@ -106,13 +106,13 @@ export default function ExplorePage() {
                   {art.community}
                 </div>
               </div>
-              <figcaption className="p-7">
+              <figcaption className="p-5">
                 <div className="text-sm font-semibold uppercase tracking-wider text-red">
                   {art.tagline}
                 </div>
-                <h3 className="font-heading mt-1.5 text-3xl text-ink">{art.name}</h3>
-                <p className="mt-3 text-base leading-relaxed text-ink-mid">{art.description}</p>
-                <dl className="mt-5 space-y-2.5 border-t border-border pt-5">
+                <h3 className="font-heading mt-1 text-2xl text-ink">{art.name}</h3>
+                <p className="mt-2 text-base leading-relaxed text-ink-mid">{art.description}</p>
+                <dl className="mt-4 space-y-1.5 border-t border-border pt-4">
                   {art.facts.map((fact) => (
                     <div key={fact.label} className="flex gap-4 text-sm">
                       <dt className="w-28 shrink-0 font-semibold text-ink-soft">{fact.label}</dt>
@@ -124,12 +124,13 @@ export default function ExplorePage() {
             </figure>
           ))}
         </div>
-        <div className="mt-14">
-          <h3 className="font-heading mb-7 text-2xl text-ink">Craft in daily use</h3>
-          <div className="stagger grid gap-6 sm:grid-cols-3">
+        <p className="mt-2 text-center text-sm font-semibold text-ink-soft sm:hidden">Swipe for more →</p>
+        <div className="mt-9">
+          <h3 className="font-heading mb-4 text-2xl text-ink">Craft in daily use</h3>
+          <div role="region" aria-label="Craft in daily use" tabIndex={0} className="stagger no-scrollbar -mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-2 focus-visible:outline-2 focus-visible:outline-red sm:mx-0 sm:grid sm:overflow-visible sm:px-0 sm:pb-0 sm:grid-cols-3">
             {craftInUse.map((item) => (
-              <figure key={item.image} className="overflow-hidden rounded-[18px] border border-border bg-white">
-                <div className="relative aspect-4/3 w-full">
+              <figure key={item.image} className="w-[80%] shrink-0 snap-center sm:w-auto overflow-hidden rounded-[18px] border border-border bg-white">
+                <div className="relative aspect-video w-full sm:aspect-4/3">
                   <Image
                     src={item.image}
                     alt={item.alt}
@@ -138,19 +139,20 @@ export default function ExplorePage() {
                     className="object-cover"
                   />
                 </div>
-                <figcaption className="p-5">
+                <figcaption className="p-4">
                   <div className="text-base font-bold text-ink">{item.caption}</div>
                   <p className="mt-1.5 text-[15px] leading-relaxed text-ink-mid">{item.note}</p>
                 </figcaption>
               </figure>
             ))}
           </div>
+          <p className="mt-2 text-center text-sm font-semibold text-ink-soft sm:hidden">Swipe for more →</p>
         </div>
       </Section>
 
       {/* NIYAMGIRI */}
       <div className="border-y border-border">
-        <div className="relative h-64 w-full sm:h-96">
+        <div className="relative h-44 w-full sm:h-72">
           <Image
             src="/images/culture/niyamgiri-hills.webp"
             alt="Forested ridges of the Eastern Ghats rising behind terraced paddy fields and a rocky stream"
@@ -160,7 +162,7 @@ export default function ExplorePage() {
           />
         </div>
         <Section className="bg-wash">
-          <div className="grid gap-12 lg:grid-cols-[1.15fr_1fr]">
+          <div className="grid gap-8 lg:grid-cols-[1.15fr_1fr]">
             <div>
               <div className="mb-3 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-red">
                 <PinIcon size={18} /> Roughly 80 km from campus
@@ -168,7 +170,7 @@ export default function ExplorePage() {
               <h2 className="font-heading text-[30px] leading-tight text-ink sm:text-4xl">
                 Niyamgiri is not a view. It is a person.
               </h2>
-              <div className="mt-5 space-y-4 text-lg leading-relaxed text-ink-mid">
+              <div className="mt-4 space-y-3 text-base leading-relaxed text-ink-mid sm:text-lg">
                 <p>
                   To the Dongria Kondh, the range is <strong className="text-ink">Niyam Raja</strong>
                   {" "}— the king who gives the law. The hill is not where the god lives; the hill is
@@ -189,8 +191,8 @@ export default function ExplorePage() {
               </div>
             </div>
             <div className="flex flex-col gap-4">
-              <div className="rounded-2xl border border-border bg-bg p-7">
-                <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-red-tint text-red">
+              <div className="rounded-2xl border border-border bg-bg p-5">
+                <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-xl bg-red-tint text-red">
                   <LeafIcon size={24} />
                 </div>
                 <div className="mb-2 text-lg font-bold text-ink">What grows here</div>
@@ -200,7 +202,7 @@ export default function ExplorePage() {
                   turmeric carries a GI tag of its own.
                 </p>
               </div>
-              <div className="rounded-2xl border border-border bg-bg p-7">
+              <div className="rounded-2xl border border-border bg-bg p-5">
                 <div className="mb-2 text-lg font-bold text-ink">Where the hills come down</div>
                 <p className="text-base leading-relaxed text-ink-mid">
                   Once a week the haat at Chatikona fills with Dongria families trading forest
@@ -219,8 +221,8 @@ export default function ExplorePage() {
           title="The people of these hills"
           subtitle="Southern Odisha holds more tribal communities than any other part of India. These are the neighbours closest to campus."
         />
-        <figure className="mb-10 overflow-hidden rounded-[20px] border border-border">
-          <div className="relative aspect-video w-full sm:aspect-21/9">
+        <figure className="mb-6 overflow-hidden rounded-[20px] border border-border">
+          <div className="relative aspect-video w-full sm:aspect-3/1">
             <Image
               src="/images/culture/dongria-women.webp"
               alt="A line of Dongria Kondh women in white wraps, bead necklaces, neck rings and hairpins standing outside a thatched village house"
@@ -229,14 +231,14 @@ export default function ExplorePage() {
               className="object-cover"
             />
           </div>
-          <figcaption className="bg-white px-6 py-4 text-[15px] text-ink-mid">
+          <figcaption className="bg-white px-5 py-3 text-[15px] text-ink-mid">
             Dongria Kondh women outside a village house on the Niyamgiri slopes — hairpins, neck
             rings and layered beads worn as everyday dress, not costume.
           </figcaption>
         </figure>
-        <div className="stagger grid gap-6 sm:grid-cols-2">
+        <div role="region" aria-label="Communities" tabIndex={0} className="stagger no-scrollbar -mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-2 focus-visible:outline-2 focus-visible:outline-red sm:mx-0 sm:grid sm:overflow-visible sm:px-0 sm:pb-0 sm:grid-cols-2">
           {communities.map((c) => (
-            <div key={c.name} className="hover-lift rounded-2xl border border-border bg-white p-7">
+            <div key={c.name} className="hover-lift w-[85%] shrink-0 snap-center sm:w-auto rounded-2xl border border-border bg-white p-5">
               <h3 className="font-heading text-2xl text-ink">{c.name}</h3>
               <div className="mt-3 flex flex-wrap gap-2">
                 <Chip>{c.language}</Chip>
@@ -246,24 +248,26 @@ export default function ExplorePage() {
             </div>
           ))}
         </div>
+        <p className="mt-2 text-center text-sm font-semibold text-ink-soft sm:hidden">Swipe for more →</p>
       </Section>
 
       {/* NATURE */}
       <Section className="border-y border-border bg-wash">
         <SectionHeading title="The ground it all stands on" align="left" />
-        <div className="stagger grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div role="region" aria-label="Nature notes" tabIndex={0} className="stagger no-scrollbar -mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-2 focus-visible:outline-2 focus-visible:outline-red sm:mx-0 sm:grid sm:overflow-visible sm:px-0 sm:pb-0 sm:grid-cols-2 lg:grid-cols-4">
           {natureNotes.map((n) => (
-            <div key={n.title} className="rounded-2xl border border-border bg-bg p-6">
+            <div key={n.title} className="w-[80%] shrink-0 snap-center sm:w-auto rounded-2xl border border-border bg-bg p-5">
               <div className="mb-2 text-lg font-bold text-ink">{n.title}</div>
               <p className="text-base leading-relaxed text-ink-mid">{n.body}</p>
             </div>
           ))}
         </div>
-        <div className="mt-9 flex flex-wrap gap-3">
+        <p className="mt-2 text-center text-sm font-semibold text-ink-soft sm:hidden">Swipe for more →</p>
+        <div className="mt-6 flex flex-wrap gap-2">
           {heritageHighlights.map((h) => (
             <span
               key={h}
-              className="rounded-full border border-border bg-white px-5 py-2.5 text-[15px] font-semibold text-ink-mid"
+              className="rounded-full border border-border bg-white px-4 py-2 text-sm font-semibold text-ink-mid"
             >
               {h}
             </span>
@@ -277,13 +281,11 @@ export default function ExplorePage() {
           title="Worth the drive"
           subtitle="Distances from GIET University, Gunupur. Roads here are hill roads — allow more time than a map suggests."
         />
-        <div className="overflow-hidden rounded-[20px] border border-border bg-white">
-          {dayTrips.map((trip, i) => (
+        <div className="grid gap-px overflow-hidden rounded-[20px] border border-border bg-border lg:grid-cols-2">
+          {dayTrips.map((trip) => (
             <div
               key={trip.place}
-              className={`flex flex-wrap items-center gap-x-6 gap-y-2 px-6 py-5 sm:px-8 ${
-                i > 0 ? "border-t border-border" : ""
-              }`}
+              className="flex flex-wrap items-center gap-x-6 gap-y-2 bg-white px-5 py-3.5 sm:px-6 lg:last:odd:col-span-2"
             >
               <div className="min-w-50 flex-1">
                 <div className="text-lg font-bold text-ink">{trip.place}</div>
@@ -304,17 +306,17 @@ export default function ExplorePage() {
 
       {/* ETIQUETTE */}
       <Section className="border-t border-border bg-wash">
-        <div className="grid gap-10 lg:grid-cols-[1fr_1.3fr]">
+        <div className="grid gap-6 lg:grid-cols-[1fr_1.3fr]">
           <div>
-            <h2 className="font-heading text-4xl leading-tight text-ink">Visiting well</h2>
+            <h2 className="font-heading text-[26px] leading-tight text-ink sm:text-[34px]">Visiting well</h2>
             <p className="mt-4 text-lg leading-relaxed text-ink-mid">
               These are homes and working markets, not exhibits. A little care keeps them that way
               for the delegates who come after you.
             </p>
           </div>
-          <ul className="stagger space-y-4">
+          <ul className="stagger space-y-2.5">
             {visitingNotes.map((note) => (
-              <li key={note} className="flex gap-4 rounded-2xl border border-border bg-bg p-5">
+              <li key={note} className="flex gap-4 rounded-2xl border border-border bg-bg p-4">
                 <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-red" />
                 <span className="text-base leading-relaxed text-ink-mid">{note}</span>
               </li>
@@ -325,7 +327,7 @@ export default function ExplorePage() {
 
       {/* CTA */}
       <Section>
-        <div className="flex flex-col items-center gap-5 rounded-[20px] border border-border bg-white p-10 text-center">
+        <div className="flex flex-col items-center gap-4 rounded-[20px] border border-border bg-white p-7 text-center">
           <h2 className="font-heading max-w-xl text-3xl leading-tight text-ink">
             Build a day around it
           </h2>

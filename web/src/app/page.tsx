@@ -33,7 +33,7 @@ export default function Home() {
   return (
     <>
       {/* HERO */}
-      <section className="relative overflow-hidden bg-forest py-10 sm:py-16">
+      <section className="relative overflow-hidden bg-forest py-8 sm:py-12">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(90%_70%_at_85%_10%,rgba(255,255,255,0.16),transparent_60%),radial-gradient(70%_60%_at_0%_100%,rgba(255,255,255,0.08),transparent_60%)]"
@@ -98,7 +98,7 @@ export default function Home() {
                 <div className="font-heading text-2xl leading-tight text-ink">{event.dates}</div>
               </div>
             </div>
-            <dl className="mt-6 space-y-5">
+            <dl className="mt-5 space-y-4">
               <GlanceRow
                 icon={<PinIcon size={20} />}
                 label="Venue"
@@ -147,7 +147,7 @@ export default function Home() {
 
       {/* CALL FOR PAPERS */}
       <Section className="bg-forest">
-        <div className="grid gap-12 lg:grid-cols-[1.15fr_1fr] lg:items-center">
+        <div className="grid gap-8 lg:grid-cols-[1.15fr_1fr] lg:items-center">
           <div>
             <div className="mb-3 text-sm font-bold uppercase tracking-wider text-cyan-bright">
               Call for Papers
@@ -186,7 +186,7 @@ export default function Home() {
           subtitle="Joining CABHBE-26 from India, Indonesia, Ireland, Vietnam, Bangladesh and Taiwan. Tap About on any card to read more."
         />
         <AdvisorMarquee advisors={advisoryPanel} />
-        <div className="mt-9 text-center">
+        <div className="mt-6 text-center">
           <Button href="/about#committee" variant="outline">
             See the Full Committee <ArrowRightIcon size={20} />
           </Button>
@@ -239,7 +239,7 @@ export default function Home() {
 
       {/* VENUE TEASER */}
       <Section className="border-t border-border bg-wash">
-        <div className="grid items-center gap-8 sm:gap-14 lg:grid-cols-[1.1fr_1fr]">
+        <div className="grid items-center gap-6 sm:gap-10 lg:grid-cols-[1.1fr_1fr]">
           <div>
             <h2 className="font-heading text-[28px] leading-tight text-ink sm:text-4xl">
               Gunupur, Odisha — where biotechnology meets heritage
@@ -257,7 +257,7 @@ export default function Home() {
               </Button>
             </div>
           </div>
-          <div className="relative h-70 overflow-hidden rounded-[20px]">
+          <div className="relative h-52 overflow-hidden rounded-[20px] sm:h-64">
             <Image
               src="/images/venue/hostel-block.jpg"
               alt="GIET University campus with the Eastern Ghats hills in the background"
@@ -274,7 +274,7 @@ export default function Home() {
 
       {/* CLOSING */}
       <Section className="border-t border-border">
-        <div className="rounded-3xl border border-border bg-white px-5 py-10 text-center sm:px-8 sm:py-12">
+        <div className="rounded-3xl border border-border bg-white px-5 py-8 text-center sm:px-8 sm:py-10">
           <h2 className="font-heading mx-auto max-w-2xl text-[28px] leading-tight text-ink sm:text-4xl">
             Join us in Gunupur this December
           </h2>
@@ -287,7 +287,7 @@ export default function Home() {
               <MailIcon size={20} /> Ask a Question
             </Button>
           </div>
-          <div className="stagger mt-10 flex flex-wrap justify-center gap-2.5 border-t border-border pt-9 sm:gap-3.5">
+          <div className="stagger mt-7 flex flex-wrap justify-center gap-2.5 border-t border-border pt-6 sm:gap-3">
             {trustBadges.map((b) => (
               <Badge key={b}>{b}</Badge>
             ))}

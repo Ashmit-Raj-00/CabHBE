@@ -12,10 +12,10 @@ export function SectionHeading({
 }) {
   return (
     <div
-      className={`mb-7 sm:mb-9 ${align === "center" ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}`}
+      className={`mb-5 sm:mb-7 ${align === "center" ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}`}
     >
-      <h2 className="font-heading text-[28px] leading-tight text-ink sm:text-4xl">{title}</h2>
-      {subtitle && <p className="mt-3 text-base text-ink-mid sm:text-lg">{subtitle}</p>}
+      <h2 className="font-heading text-[26px] leading-tight text-ink sm:text-[34px]">{title}</h2>
+      {subtitle && <p className="mt-2 text-base text-ink-mid sm:text-lg">{subtitle}</p>}
     </div>
   );
 }
@@ -30,7 +30,7 @@ export function Section({
   id?: string;
 }) {
   return (
-    <section id={id} className={`py-9 sm:py-14 ${className}`}>
+    <section id={id} className={`py-7 sm:py-11 ${className}`}>
       <Reveal className="mx-auto max-w-6xl px-6 sm:px-8">{children}</Reveal>
     </section>
   );

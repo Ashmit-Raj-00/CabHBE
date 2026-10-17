@@ -17,20 +17,20 @@ export default function ContactPage() {
       />
 
       <Section>
-        <div className="stagger grid gap-4 sm:grid-cols-2 sm:gap-6">
+        <div className="stagger grid gap-3 sm:grid-cols-2 sm:gap-4">
           {event.conveners.map((c) => (
-            <div key={c.name} className="rounded-2xl border border-border bg-white p-7">
+            <div key={c.name} className="rounded-2xl border border-border bg-white p-5">
               <div className="text-sm font-bold uppercase tracking-wide text-red">{c.role}</div>
               <div className="mt-2 text-xl font-bold text-ink">{c.name}</div>
-              <p className="mt-2 text-base leading-relaxed text-ink-mid">{c.detail}</p>
+              <p className="mt-1.5 text-base leading-relaxed text-ink-mid">{c.detail}</p>
             </div>
           ))}
         </div>
 
-        <div className="stagger mt-4 grid gap-4 sm:mt-6 sm:grid-cols-3 sm:gap-6">
+        <div className="stagger mt-3 grid gap-3 sm:mt-4 sm:grid-cols-3 sm:gap-4">
           <a
             href={`mailto:${event.submissionEmail}`}
-            className="flex min-w-0 items-center gap-3 rounded-2xl border border-border bg-white p-6 text-lg font-semibold text-ink hover:border-red hover:text-red"
+            className="flex min-w-0 items-center gap-3 rounded-2xl border border-border bg-white p-4 text-lg font-semibold text-ink hover:border-red hover:text-red"
           >
             <MailIcon size={24} className="shrink-0" />
             <span className="min-w-0 wrap-break-word">{event.submissionEmail}</span>
@@ -39,7 +39,7 @@ export default function ContactPage() {
             <a
               key={num}
               href={`https://wa.me/${num.replace(/[^\d]/g, "")}`}
-              className="flex min-w-0 items-center gap-3 rounded-2xl border border-border bg-white p-6 text-lg font-semibold text-ink hover:border-red hover:text-red"
+              className="flex min-w-0 items-center gap-3 rounded-2xl border border-border bg-white p-4 text-lg font-semibold text-ink hover:border-red hover:text-red"
             >
               <WhatsappIcon size={24} className="shrink-0" />
               <span className="min-w-0 wrap-break-word">{num}</span>
@@ -47,7 +47,7 @@ export default function ContactPage() {
           ))}
         </div>
 
-        <div className="mt-6 flex items-start gap-3 rounded-2xl border border-border bg-white p-6 text-lg font-semibold text-ink">
+        <div className="mt-3 flex items-start gap-3 rounded-2xl border border-border bg-white p-4 text-lg font-semibold text-ink sm:mt-4">
           <PinIcon size={24} className="mt-0.5 shrink-0" />
           {event.venueFull}
         </div>
@@ -60,7 +60,7 @@ export default function ContactPage() {
         />
         <div className="mx-auto max-w-3xl divide-y divide-border">
           {faqs.map((item) => (
-            <details key={item.question} className="group py-5">
+            <details key={item.question} className="group py-4">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-semibold text-ink marker:content-none">
                 {item.question}
                 <span

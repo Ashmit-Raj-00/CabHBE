@@ -50,8 +50,8 @@ export default function AboutPage() {
       {/* THE CONFERENCE */}
       <Section id="conference" className="scroll-mt-32 sm:scroll-mt-40">
         <SectionHeading title="About the Conference" align="left" />
-        <div className="grid gap-10 lg:grid-cols-[1.45fr_1fr]">
-          <div className="space-y-5 text-lg leading-relaxed text-ink-mid">
+        <div className="grid gap-7 lg:grid-cols-[1.45fr_1fr]">
+          <div className="space-y-4 text-base leading-relaxed text-ink-mid sm:text-lg">
             <p>
               CABHBE-26, organized by the {event.organizer}, marks the second edition of the
               International Conference on Advancement of Biotechnology in Healthcare, Bioproducts
@@ -72,7 +72,7 @@ export default function AboutPage() {
               and real-world solutions.
             </p>
           </div>
-          <div className="rounded-2xl border border-border bg-white p-7">
+          <div className="rounded-2xl border border-border bg-white p-6">
             <div className="text-sm font-semibold text-ink-soft">Recognition</div>
             <div className="mt-4 flex flex-wrap gap-2.5">
               {trustBadges.map((b) => (
@@ -90,7 +90,7 @@ export default function AboutPage() {
           </div>
         </div>
 
-        <div className="mt-12">
+        <div className="mt-8">
           <h3 className="font-heading mb-5 text-2xl text-ink">Who it brings together</h3>
           <div className="stagger flex flex-wrap gap-2.5 sm:gap-3">
             {conferenceAudience.map((a) => (
@@ -103,8 +103,8 @@ export default function AboutPage() {
       {/* THE UNIVERSITY */}
       <Section id="university" className="scroll-mt-32 sm:scroll-mt-40 border-t border-border bg-wash">
         <SectionHeading title="About GIET University" align="left" />
-        <div className="grid gap-12 lg:grid-cols-[1.15fr_1fr] lg:items-center">
-          <div className="space-y-5 text-lg leading-relaxed text-ink-mid">
+        <div className="grid gap-8 lg:grid-cols-[1.15fr_1fr] lg:items-center">
+          <div className="space-y-4 text-base leading-relaxed text-ink-mid sm:text-lg">
             <p>
               Gandhi Institute of Engineering and Technology University (GIETU) is a professionally
               managed, UGC &amp; AICTE-approved university established in 2018 under an Act of the
@@ -127,7 +127,7 @@ export default function AboutPage() {
               ))}
             </div>
           </div>
-          <div className="relative h-72 overflow-hidden rounded-[20px] border border-border sm:h-80">
+          <div className="relative h-52 overflow-hidden rounded-[20px] border border-border sm:h-72">
             <Image
               src="/images/venue/academic-block-aerial.jpg"
               alt="Aerial view of a GIET University academic block with the Eastern Ghats behind it"
@@ -138,7 +138,7 @@ export default function AboutPage() {
           </div>
         </div>
 
-        <div className="stagger mt-11 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-5">
+        <div className="stagger mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-5">
           {university.stats.map((s) => (
             <StatCard key={s.label} value={s.value} label={s.label} />
           ))}
@@ -153,9 +153,9 @@ export default function AboutPage() {
           align="left"
         />
         <div className="grid gap-6 lg:grid-cols-2">
-          <div className="rounded-2xl border border-border bg-white p-8">
+          <div className="rounded-2xl border border-border bg-white p-6">
             <h3 className="font-heading mb-5 text-2xl text-ink">Programs offered</h3>
-            <dl className="space-y-5">
+            <dl className="space-y-4">
               {university.programs.map((p) => (
                 <div key={p.level} className="border-t border-border pt-4 first:border-t-0 first:pt-0">
                   <dt className="text-base font-bold text-ink">{p.level}</dt>
@@ -164,9 +164,9 @@ export default function AboutPage() {
               ))}
             </dl>
           </div>
-          <div className="rounded-2xl border border-border bg-white p-8">
+          <div className="rounded-2xl border border-border bg-white p-6">
             <h3 className="font-heading mb-5 text-2xl text-ink">Innovation & incubation</h3>
-            <ul className="space-y-4">
+            <ul className="space-y-3">
               {university.innovation.map((c) => (
                 <li key={c.name} className="flex gap-3.5">
                   <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-tint text-blue">
@@ -192,9 +192,9 @@ export default function AboutPage() {
           subtitle="CABHBE-26 is run by the Department of Biotechnology together with the BIRAC E-YUVA Center."
           align="left"
         />
-        <div className="stagger grid gap-6 lg:grid-cols-2">
-          <article className="overflow-hidden rounded-[20px] border border-border bg-bg">
-            <div className="relative h-52 w-full">
+        <div role="region" aria-label="Our hosts" tabIndex={0} className="stagger no-scrollbar -mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-2 focus-visible:outline-2 focus-visible:outline-red sm:mx-0 sm:grid sm:overflow-visible sm:px-0 sm:pb-0 sm:grid-cols-2 sm:gap-6">
+          <article className="w-[85%] shrink-0 snap-center sm:w-auto overflow-hidden rounded-[20px] border border-border bg-bg">
+            <div className="relative h-36 w-full sm:h-44">
               <Image
                 src="/images/venue/school-of-sciences.webp"
                 alt="The School of Sciences building at GIET University"
@@ -203,7 +203,7 @@ export default function AboutPage() {
                 className="object-cover"
               />
             </div>
-            <div className="p-8">
+            <div className="p-6">
               <h3 className="font-heading text-2xl text-ink">Department of Biotechnology</h3>
               <p className="mt-3 text-base leading-relaxed text-ink-mid">
                 Established in 2003 and accredited by NBA, the department works toward sustainable
@@ -211,7 +211,7 @@ export default function AboutPage() {
                 frontier areas of biotechnology. It promotes innovation, entrepreneurship and
                 independent projects, with opportunities to work on funded research.
               </p>
-              <div className="mt-5 flex flex-wrap gap-2.5">
+              <div className="mt-4 flex flex-wrap gap-2">
                 {["Ph.D.", "M.Tech", "M.Sc.", "B.Tech"].map((p) => (
                   <span
                     key={p}
@@ -224,8 +224,8 @@ export default function AboutPage() {
             </div>
           </article>
 
-          <article className="overflow-hidden rounded-[20px] border border-border bg-bg">
-            <div className="relative h-52 w-full">
+          <article className="w-[85%] shrink-0 snap-center sm:w-auto overflow-hidden rounded-[20px] border border-border bg-bg">
+            <div className="relative h-36 w-full sm:h-44">
               <Image
                 src="/images/venue/research-center.jpg"
                 alt="The Research and Innovation Center at GIET University"
@@ -234,7 +234,7 @@ export default function AboutPage() {
                 className="object-cover"
               />
             </div>
-            <div className="p-8">
+            <div className="p-6">
               <h3 className="font-heading text-2xl text-ink">BIRAC E-YUVA Center</h3>
               <p className="mt-3 text-base leading-relaxed text-ink-mid">
                 A dedicated biotechnology pre-incubation hub established with the support of the
@@ -242,7 +242,7 @@ export default function AboutPage() {
                 exists to ignite young minds — undergraduate, postgraduate and post-doctoral
                 students — across life sciences, agriculture, healthcare and biotechnology.
               </p>
-              <div className="mt-5 flex flex-wrap gap-2.5">
+              <div className="mt-4 flex flex-wrap gap-2">
                 {["Modern laboratories", "Mentorship", "Fellowships & funding", "Prototyping"].map(
                   (p) => (
                     <span
@@ -257,6 +257,7 @@ export default function AboutPage() {
             </div>
           </article>
         </div>
+        <p className="mt-2 text-center text-sm font-semibold text-ink-soft sm:hidden">Swipe for more →</p>
       </Section>
 
       {/* COMMITTEE */}
@@ -266,42 +267,55 @@ export default function AboutPage() {
           subtitle="The people steering CABHBE-26, from University leadership to our international advisory panel."
           align="left"
         />
-        <div className="space-y-11">
+        <div className="space-y-7">
           {committee.map((group) => (
             <div key={group.title}>
-              <h3 className="font-heading mb-5 flex items-center gap-4 text-2xl text-ink">
+              <h3 className="font-heading mb-3 flex items-center gap-4 text-xl text-ink">
                 {group.title}
                 <span className="h-px flex-1 bg-border" />
                 <span className="text-base font-semibold text-ink-soft">
                   {group.members.length}
                 </span>
               </h3>
-              <div className="stagger grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div
+                className={`stagger grid items-start gap-3 sm:grid-cols-2 ${
+                  group.members.some((m) => m.bio) ? "lg:grid-cols-3" : "lg:grid-cols-4"
+                }`}
+              >
                 {group.members.map((m) => (
                   <div
                     key={m.name}
-                    className="hover-lift flex gap-4 rounded-2xl border border-border bg-white p-6"
+                    className="hover-lift flex gap-3 rounded-2xl border border-border bg-white p-4"
                   >
                     {m.image && (
-                      <span className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full border border-border">
+                      <span className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full border border-border">
                         <Image
                           src={m.image}
                           alt={`Portrait of ${m.name}`}
                           fill
-                          sizes="56px"
+                          sizes="48px"
                           className="object-cover"
                         />
                       </span>
                     )}
                     <div className="min-w-0">
-                      <div className="text-[17px] font-bold leading-snug text-ink">{m.name}</div>
+                      <div className="text-base font-bold leading-snug text-ink">{m.name}</div>
                       {m.role && (
-                        <div className="mt-1.5 text-sm leading-relaxed text-ink-mid">{m.role}</div>
+                        <div className="mt-1 text-sm leading-snug text-ink-mid">{m.role}</div>
                       )}
+                      {/* Bios stay folded so the committee list doesn't run for pages. */}
                       {m.bio && (
-                        <p className="mt-3 border-t border-border pt-3 text-[13px] leading-relaxed text-ink-soft">
-                          {m.bio}
-                        </p>
+                        <details className="group mt-2">
+                          <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-full border border-border px-3 py-1 text-[13px] font-semibold text-red marker:content-none hover:border-red focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red">
+                            About
+                            <span aria-hidden className="text-base leading-none transition-transform group-open:rotate-45">
+                              +
+                            </span>
+                          </summary>
+                          <p className="mt-2 border-t border-border pt-2 text-[13px] leading-relaxed text-ink-soft">
+                            {m.bio}
+                          </p>
+                        </details>
                       )}
                     </div>
                   </div>
