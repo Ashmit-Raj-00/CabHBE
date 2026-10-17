@@ -18,7 +18,7 @@ export const faqs = [
   },
   {
     question: "How do I submit an abstract or paper?",
-    answer: `Email your abstract, short paper, or full manuscript to ${event.submissionEmail}, following the formatting guidelines on the Call for Papers page (250–300 words, Arial 12pt for the body, Arial 14pt bold for the title). Only registered participants may present.`,
+    answer: `Attach your abstract as a PDF when you register to present (choose Oral or Poster on the registration form), or email your abstract, short paper, or full manuscript to ${event.submissionEmail}, following the formatting guidelines on the Call for Papers page (250–300 words, Arial 12pt for the body, Arial 14pt bold for the title). Only registered participants may present.`,
   },
   {
     question: "Do I need to register before submitting an abstract?",

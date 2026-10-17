@@ -12,12 +12,16 @@ import {
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red";
 const inputClass = `h-13 w-full min-w-0 rounded-lg border border-border bg-white px-4 text-base focus:border-red aria-[invalid=true]:border-2 aria-[invalid=true]:border-red ${focusRing}`;
+const fileInputClass = `block w-full min-w-0 rounded-lg text-base text-ink-mid file:mr-4 file:h-11 file:cursor-pointer file:rounded-lg file:border-0 file:bg-red-tint file:px-4 file:font-semibold file:text-red ${focusRing}`;
 const labelClass = "text-sm font-semibold text-ink";
 const legendClass = "mb-4 font-heading text-xl font-bold text-ink";
 
-// Must match PROOF_TYPES and MAX_PROOF_MB in google-sheet/registrations.gs.
-const PROOF_TYPES = ["image/jpeg", "image/png", "image/webp", "application/pdf"];
-const MAX_PROOF_MB = 5;
+// Files the form can attach. Must match UPLOADS and MAX_FILE_MB in google-sheet/registrations.gs.
+const FILES: Record<string, { types: string[]; described: string }> = {
+  proof: { types: ["image/jpeg", "image/png", "image/webp", "application/pdf"], described: "JPG, PNG, WEBP or PDF" },
+  abstract: { types: ["application/pdf"], described: "PDF" },
+};
+const MAX_FILE_MB = 5;
 // Google can take a while to save a large attachment and send the emails.
 const TIMEOUT_MS = 90_000;
 
@@ -31,6 +35,7 @@ const LABELS: Record<string, string> = {
   category: "Registration Category",
   presentationType: "Presentation",
   paperTitle: "Paper / Abstract Title",
+  abstract: "Abstract (PDF)",
   transactionId: "Transaction ID",
   paymentDate: "Transaction Date",
   bankName: "Bank Used",
@@ -48,10 +53,10 @@ function feeForCategory(category: string) {
   return { amount: isEarlyBird ? tier.before : tier.after, currency: tier.currency };
 }
 
-function fileProblem(file: File | undefined) {
+function fileProblem(name: string, file: File | undefined) {
   if (!file || file.size === 0) return null;
-  if (!PROOF_TYPES.includes(file.type)) return "Attach a JPG, PNG, WEBP or PDF file.";
-  if (file.size > MAX_PROOF_MB * 1024 * 1024) return `The file must be ${MAX_PROOF_MB} MB or smaller.`;
+  if (!FILES[name].types.includes(file.type)) return `Attach a ${FILES[name].described} file.`;
+  if (file.size > MAX_FILE_MB * 1024 * 1024) return `The file must be ${MAX_FILE_MB} MB or smaller.`;
   return null;
 }
 
@@ -72,7 +77,7 @@ function findProblems(form: HTMLFormElement) {
       el instanceof HTMLInputElement || el instanceof HTMLSelectElement || el instanceof HTMLTextAreaElement;
     if (!isField || !(el.name in LABELS)) continue;
     const problem =
-      el instanceof HTMLInputElement && el.type === "file" ? fileProblem(el.files?.[0]) : fieldProblem(el);
+      el instanceof HTMLInputElement && el.type === "file" ? fileProblem(el.name, el.files?.[0]) : fieldProblem(el);
     if (problem) problems[el.name] = problem;
   }
   return problems;
@@ -187,15 +192,16 @@ export function RegistrationForm() {
     }
 
     const form = new FormData(formElement);
-    const proofFile = form.get("proof");
-    let proof: { type: string; data: string } | undefined;
-    try {
-      if (proofFile instanceof File && proofFile.size > 0) {
-        proof = { type: proofFile.type, data: await readAsBase64(proofFile) };
+    const files: Record<string, { type: string; data: string }> = {};
+    for (const name of Object.keys(FILES)) {
+      const file = form.get(name);
+      if (!(file instanceof File) || file.size === 0) continue;
+      try {
+        files[name] = { type: file.type, data: await readAsBase64(file) };
+      } catch {
+        showProblems({ [name]: "We couldn't read this file. Please choose it again." }, "Please fix the highlighted field above.");
+        return;
       }
-    } catch {
-      showProblems({ proof: "We couldn't read this file. Please choose it again." }, "Please fix the highlighted field above.");
-      return;
     }
 
     setErrors({});
@@ -218,7 +224,8 @@ export function RegistrationForm() {
       transactionId: String(form.get("transactionId") ?? "") || undefined,
       paymentDate: String(form.get("paymentDate") ?? "") || undefined,
       bankName: String(form.get("bankName") ?? "") || undefined,
-      proof,
+      proof: files.proof,
+      abstract: files.abstract,
       website: String(form.get("website") ?? "") || undefined,
     };
     const paid = Boolean(payload.transactionId || payload.proof);
@@ -398,9 +405,24 @@ export function RegistrationForm() {
             </select>
           </Field>
           {presentationType !== "NOT_PRESENTING" && (
-            <Field name="paperTitle" error={errors.paperTitle}>
-              <input {...control("paperTitle")} className={inputClass} />
-            </Field>
+            <>
+              <Field name="paperTitle" error={errors.paperTitle}>
+                <input {...control("paperTitle")} className={inputClass} />
+              </Field>
+              <Field
+                name="abstract"
+                wide
+                note={`${FILES.abstract.described}, up to ${MAX_FILE_MB} MB. If it isn't ready yet, you can email it to ${conference.submissionEmail} later.`}
+                error={errors.abstract}
+              >
+                <input
+                  {...control("abstract", true)}
+                  type="file"
+                  accept={FILES.abstract.types.join(",")}
+                  className={fileInputClass}
+                />
+              </Field>
+            </>
           )}
           <label className="flex items-center gap-3 sm:col-span-2">
             <input
@@ -441,14 +463,14 @@ export function RegistrationForm() {
           <Field
             name="proof"
             wide
-            note={`JPG, PNG, WEBP or PDF, up to ${MAX_PROOF_MB} MB.`}
+            note={`${FILES.proof.described}, up to ${MAX_FILE_MB} MB.`}
             error={errors.proof}
           >
             <input
               {...control("proof", true)}
               type="file"
-              accept={PROOF_TYPES.join(",")}
-              className={`block w-full min-w-0 rounded-lg text-base text-ink-mid file:mr-4 file:h-11 file:cursor-pointer file:rounded-lg file:border-0 file:bg-red-tint file:px-4 file:font-semibold file:text-red ${focusRing}`}
+              accept={FILES.proof.types.join(",")}
+              className={fileInputClass}
             />
           </Field>
         </div>

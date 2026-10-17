@@ -3,7 +3,8 @@
  *
  * What it does:
  *   - Each registration becomes a row in the "Registrations" tab with an ID like CABHBE26-0001.
- *     A payment screenshot/PDF, if attached, is saved to the "Payment Proofs" folder in Drive.
+ *     A payment screenshot/PDF, if attached, is saved to the "Payment Proofs" folder in Drive,
+ *     and an abstract PDF to the "Abstracts" folder.
  *   - The registrant gets a confirmation email, and the committee gets a copy of each registration.
  *   - Setting Payment Status to VERIFIED or REJECTED emails the registrant straight away.
  *   - Every night an Excel (.xlsx) copy of the sheet is saved to the "Backups" folder in Drive.
@@ -38,14 +39,24 @@ const SETTINGS = {
 };
 
 const SHEET_NAME = "Registrations";
-const PROOF_FOLDER = SETTINGS.conference + " Payment Proofs";
 const BACKUP_FOLDER = SETTINGS.conference + " Backups";
 const STATUSES = ["PENDING", "VERIFIED", "REJECTED"];
 
 const PRESENTATION = { ORAL: "Oral", POSTER: "Poster", NOT_PRESENTING: "Not presenting" };
-const PROOF_TYPES = { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "application/pdf": "pdf" };
-const MAX_PROOF_MB = 5;
 const MAX_PER_EMAIL_PER_HOUR = 5;
+
+// Files the form can attach: [field, label shown to the visitor, allowed types → extension, Drive folder].
+// Each file's link goes in the column named after its label.
+const UPLOADS = [
+  [
+    "proof",
+    "Payment Proof",
+    { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "application/pdf": "pdf" },
+    SETTINGS.conference + " Payment Proofs",
+  ],
+  ["abstract", "Abstract", { "application/pdf": "pdf" }, SETTINGS.conference + " Abstracts"],
+];
+const MAX_FILE_MB = 5;
 
 // Each column: [header, value from the website form]. To add a column, add a line at the END
 // so existing rows keep lining up.
@@ -68,10 +79,11 @@ const COLUMNS = [
   ["Transaction ID", (r) => text(r.transactionId)],
   ["Transaction Date", (r) => text(r.paymentDate)],
   ["Bank", (r) => text(r.bankName)],
-  ["Payment Proof", (r) => r.proofUrl],
+  ["Payment Proof", (r) => r.fileUrls["Payment Proof"] || ""],
   ["Admin Note", (r) => r.note],
   ["Confirmation Email", () => ""],
   ["Status Email", () => ""],
+  ["Abstract", (r) => r.fileUrls["Abstract"] || ""],
 ];
 
 // [field, label shown to the visitor, minimum length (0 = optional), maximum length]
@@ -116,11 +128,16 @@ function doPost(e) {
     });
   }
 
-  let proof = null;
+  const files = [];
   let record;
   try {
-    proof = data.proof ? saveProof(data.proof, data.name) : null;
-    data.proofUrl = proof ? proof.getUrl() : "";
+    data.fileUrls = {};
+    UPLOADS.forEach(([field, label, types, folder]) => {
+      if (!data[field]) return;
+      const file = saveFile(data[field], types, folder, data.name);
+      data.fileUrls[label] = file.getUrl();
+      files.push(file);
+    });
     record = saveRow(data);
   } catch (err) {
     console.error(err);
@@ -128,13 +145,13 @@ function doPost(e) {
   }
 
   // The registration is saved from here on, so nothing below may turn this into an error reply.
-  if (proof) {
+  files.forEach((file) => {
     try {
-      proof.setName(record["Registration ID"] + " - " + proof.getName());
+      file.setName(record["Registration ID"] + " - " + file.getName());
     } catch (err) {
       console.error(err);
     }
-  }
+  });
   const emailed = sendConfirmation(record);
   notifyCommittee(record);
   return reply({ ok: true, id: record["Registration ID"], emailed });
@@ -151,7 +168,7 @@ function doGet() {
  */
 function setup() {
   getSheet();
-  getFolder(PROOF_FOLDER);
+  UPLOADS.forEach(([, , , folder]) => getFolder(folder));
   getFolder(BACKUP_FOLDER);
 
   ScriptApp.getProjectTriggers().forEach((trigger) => ScriptApp.deleteTrigger(trigger));
@@ -177,10 +194,12 @@ function validate(r) {
   if (r.paymentCurrency !== "INR" && r.paymentCurrency !== "USD") {
     problems.push({ field: "paymentCurrency", label: "Currency" });
   }
-  if (r.proof) {
-    const sizeOk = typeof r.proof.data === "string" && r.proof.data.length * 0.75 <= MAX_PROOF_MB * 1024 * 1024;
-    if (!PROOF_TYPES[r.proof.type] || !sizeOk) problems.push({ field: "proof", label: "Payment Proof" });
-  }
+  UPLOADS.forEach(([field, label, types]) => {
+    const file = r[field];
+    if (!file) return;
+    const sizeOk = typeof file.data === "string" && file.data.length * 0.75 <= MAX_FILE_MB * 1024 * 1024;
+    if (!types[file.type] || !sizeOk) problems.push({ field, label });
+  });
   return problems.filter((p, i) => problems.findIndex((q) => q.field === p.field) === i);
 }
 
@@ -193,10 +212,10 @@ function tooManyAttempts(email) {
   return count > MAX_PER_EMAIL_PER_HOUR;
 }
 
-function saveProof(proof, name) {
-  const bytes = Utilities.base64Decode(proof.data);
-  const fileName = String(name).trim() + "." + PROOF_TYPES[proof.type];
-  return getFolder(PROOF_FOLDER).createFile(Utilities.newBlob(bytes, proof.type, fileName));
+function saveFile(file, types, folder, name) {
+  const bytes = Utilities.base64Decode(file.data);
+  const fileName = String(name).trim() + "." + types[file.type];
+  return getFolder(folder).createFile(Utilities.newBlob(bytes, file.type, fileName));
 }
 
 /** Appends the registration under a lock, so two at once never get the same ID. Returns it as a record. */
@@ -364,6 +383,9 @@ function getSheet() {
     sheet.appendRow(COLUMNS.map((column) => column[0]));
     sheet.getRange(1, 1, 1, COLUMNS.length).setFontWeight("bold");
     sheet.setFrozenRows(1);
+  } else if (sheet.getLastColumn() < COLUMNS.length) {
+    // Headers for columns added to COLUMNS after the tab was created.
+    sheet.getRange(1, 1, 1, COLUMNS.length).setValues([COLUMNS.map((column) => column[0])]).setFontWeight("bold");
   }
   return sheet;
 }
@@ -419,6 +441,7 @@ function details(record) {
     ["Category", record["Category"]],
     ["Presentation", record["Presentation"]],
     ["Paper Title", record["Paper Title"]],
+    ["Abstract", record["Abstract"] ? "Received" : ""],
     ["Accommodation", record["Accommodation Needed"]],
     ["Fee", fee(record)],
     ["Transaction ID", record["Transaction ID"] || "Not given yet"],

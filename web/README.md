@@ -67,7 +67,7 @@ Notes:
 How it works: the registration form sends each registration from the visitor's browser to a small Google Apps Script (`google-sheet/registrations.gs`) attached to the sheet. The script checks the fields, then:
 
 - appends one row to a **Registrations** tab, with a registration ID like `CABHBE26-0001`
-- saves the payment screenshot or PDF, if one was attached, to a **CABHBE-26 Payment Proofs** folder in Google Drive and links it in the row
+- saves the payment screenshot or PDF, if one was attached, to a **CABHBE-26 Payment Proofs** folder in Google Drive, and a presenter's abstract PDF to a **CABHBE-26 Abstracts** folder, and links each file in the row
 - emails the registrant a confirmation with their registration ID, and emails the committee a copy
 - emails the registrant again when an organizer sets **Payment Status** to `VERIFIED` or `REJECTED`
 - saves an Excel (.xlsx) copy of the whole sheet to a **CABHBE-26 Backups** folder in Drive every night, keeping the last 30
@@ -86,7 +86,7 @@ All emails are sent from the Google account that sets up the script, so use the 
 6. Open that URL in a browser. It should say *"CABHBE-26 registration endpoint is running."*
 7. Paste the URL into `registrationSheetUrl` in `src/content/settings.ts`, then publish the site again (push to GitHub for Vercel, or see "Publishing to GoDaddy").
 8. Submit a test registration on the live site, using your own email and a small screenshot. Check that the row, the confirmation email, the committee email and the file in **CABHBE-26 Payment Proofs** all arrive. Then delete the test row. The next registration still gets a new ID, so real IDs may start at `CABHBE26-0002`.
-9. In Drive, share the **CABHBE-26 Payment Proofs** folder with the organizers who verify payments, so the links in the sheet open for them.
+9. In Drive, share the **CABHBE-26 Payment Proofs** folder with the organizers who verify payments, and **CABHBE-26 Abstracts** with the reviewers, so the links in the sheet open for them.
 
 ### Day to day (organizers)
 

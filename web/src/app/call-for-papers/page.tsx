@@ -41,7 +41,9 @@ export default function CallForPapersPage() {
 
         <div className="mx-auto mt-10 flex max-w-3xl flex-col items-start gap-4 rounded-2xl border border-border bg-bg p-7 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <div className="text-lg font-bold text-ink">Send your abstract by email</div>
+            <div className="text-lg font-bold text-ink">
+              Attach your abstract when you register, or email it
+            </div>
             <a
               href={`mailto:${event.submissionEmail}`}
               className="mt-1 flex items-center gap-2 text-lg font-semibold text-red"

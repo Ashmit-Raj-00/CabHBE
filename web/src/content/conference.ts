@@ -120,7 +120,7 @@ export const submissionGuidelines = [
   "Abstract should be between 250–300 words, Arial font, 12 pt, with single line spacing. Title should be in 14 pt Arial, bold.",
   "Author's names, affiliation, complete address (including email) are required, Arial font 12 pt.",
   "Underline the name of the presenting author.",
-  `Abstracts should be sent by email to the Convener, Organizing Committee (${event.submissionEmail}).`,
+  `Abstracts can be attached as a PDF on the registration form, or sent by email to the Convener, Organizing Committee (${event.submissionEmail}).`,
   "All submitted papers will be peer-reviewed, and the selected full papers shall be published in the conference proceedings.",
   "It is the responsibility of the corresponding author to confirm that the work has not been presented or published earlier.",
   "Only registered participants are permitted to present.",
