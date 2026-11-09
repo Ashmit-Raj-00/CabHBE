@@ -30,7 +30,7 @@ export default function AboutPage() {
       <PageHero
         eyebrow="About"
         title="Biotechnology, brought together in Gunupur"
-        subtitle="A multidisciplinary platform connecting universities, industry, healthcare and policy across three days — and the people organizing it."
+        subtitle="A multidisciplinary platform connecting universities, industry, healthcare and policy across two days — and the people organizing it."
       />
 
       <div className="sticky top-18 z-40 border-b border-border bg-white/92 backdrop-blur sm:top-23">
