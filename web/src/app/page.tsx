@@ -76,7 +76,7 @@ export default function Home() {
             </h1>
 
             <p className="max-w-xl text-base leading-relaxed text-cream/85 sm:text-xl">
-              Two days in the Eastern Ghats bringing together academicians, researchers, industry
+              Three days in the Eastern Ghats bringing together academicians, researchers, industry
               leaders and students to share advances shaping the future of biotechnology.
             </p>
 
@@ -129,7 +129,7 @@ export default function Home() {
       {/* QUICK FACTS */}
       <Section className="py-9">
         <div className="stagger grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-5">
-          <StatCard value="2" label="Days of Conference" />
+          <StatCard value="3" label="Days of Conference" />
           <StatCard value="3" label="Paper Themes" />
           <StatCard value="2nd" label="Edition of CABHBE" />
           <StatCard value="100%" label="Peer-Reviewed" />

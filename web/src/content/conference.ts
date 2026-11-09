@@ -10,8 +10,8 @@
 import { formatDate, formatDateRange } from "@/lib/dates";
 
 export const dates = {
-  conferenceStart: "2026-12-07",
-  conferenceEnd: "2026-12-08",
+  conferenceStart: "2026-12-10",
+  conferenceEnd: "2026-12-12",
   abstractDeadline: "2026-11-15",
   acceptanceNotice: "2026-11-20",
   fullPaperDeadline: "2026-11-30",
