@@ -126,6 +126,22 @@ export default function Home() {
         </div>
       </section>
 
+      {/* SPONSOR */}
+      <section className="border-b border-border bg-white">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-3 px-6 py-6 sm:flex-row sm:gap-8 sm:px-8">
+          <span className="text-xs font-bold uppercase tracking-[0.18em] text-ink-soft">
+            Sponsored by
+          </span>
+          <Image
+            src="/images/sponsors/dbt-logo.png"
+            alt="Department of Biotechnology, Government of India"
+            width={822}
+            height={228}
+            className="h-14 w-auto sm:h-16"
+          />
+        </div>
+      </section>
+
       {/* QUICK FACTS */}
       <Section className="py-9">
         <div className="stagger grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-5">
