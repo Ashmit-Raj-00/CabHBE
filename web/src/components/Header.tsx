@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -60,6 +61,20 @@ export function Header() {
             </span>
           </span>
         </Link>
+
+        <div className="mr-auto hidden shrink-0 flex-col border-l border-border pl-3 sm:flex lg:pl-4">
+          <span className="text-[9px] font-semibold uppercase leading-none tracking-[0.14em] text-ink-soft">
+            Sponsored by
+          </span>
+          <Image
+            src="/images/sponsors/dbt-logo.png"
+            alt="Department of Biotechnology, Government of India"
+            width={822}
+            height={228}
+            priority
+            className="mt-1 h-9 w-auto sm:h-10 lg:h-9"
+          />
+        </div>
 
         <nav className="hidden items-center gap-x-7 lg:flex">
           {navLinks.map((link) => {

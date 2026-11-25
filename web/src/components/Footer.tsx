@@ -13,7 +13,7 @@ export function Footer() {
           <p className="mt-3 text-[15px] leading-relaxed text-white/80">
             Organized by the {event.organizer}, in association with the {event.associate}.
           </p>
-          <div className="mt-5 text-xs font-bold uppercase tracking-[0.18em] text-white/70">
+          <div className="mt-5 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/60">
             Sponsored by
           </div>
           <div className="mt-2 inline-block rounded-lg bg-white px-3 py-2">
