@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CABHBE 2026 Logo</title>
+<style>
+  :root { --bg: #1a0933; --panel: #260d46; --ink: #efe6f7; --soft: #b9a8d4; --line: #46276f; --accent: #8fbbee; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: Roboto, "Segoe UI", system-ui, Arial, sans-serif; line-height: 1.5; }
+  main { max-width: 1100px; margin: 0 auto; padding: 32px 16px 56px; }
+  h1 { font-size: clamp(1.4rem, 3vw, 2rem); margin: 0 0 4px; }
+  p { margin: 0 0 20px; color: var(--soft); }
+  h2 { font-size: 1rem; letter-spacing: .08em; text-transform: uppercase; color: var(--soft); margin: 36px 0 12px; }
+  figure { margin: 0; }
+  img { display: block; width: 100%; height: auto; }
+  .hero img { border-radius: 14px; box-shadow: 0 18px 50px rgba(0, 0, 0, .45); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+  .tile { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--panel); }
+  .tile .pic { display: grid; place-items: center; padding: 18px; min-height: 190px; }
+  .tile.dark .pic { background: #0f0f17; }
+  .tile.mark .pic img { max-width: 210px; }
+  figcaption { padding: 10px 14px; border-top: 1px solid var(--line); font-size: .9rem; color: var(--soft); }
+  ul.files { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+  ul.files li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); }
+  a { color: var(--accent); }
+  ul.files span { color: var(--soft); font-size: .9rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>CABHBE 2026 logo</h1>
+  <p>Vector redraw of the reference design, set for CABHBE 2026. The SVG files stay sharp at any size.</p>
+
+  <figure class="hero">
+    <img src="logo/cabhbe-2026-logo.svg" alt="CABHBE 2026 — International Conference: Advancement of Biotechnology in Healthcare, Bioproducts and Environmental Research">
+  </figure>
+
+  <h2>Variants</h2>
+  <div class="grid">
+    <figure class="tile dark">
+      <div class="pic"><img src="logo/cabhbe-2026-logo-transparent.svg" alt="CABHBE 2026 logo on a transparent background"></div>
+      <figcaption>Transparent background, for other dark surfaces</figcaption>
+    </figure>
+    <figure class="tile mark">
+      <div class="pic"><img src="logo/cabhbe-2026-mark.svg" alt="CABHBE 2026 emblem"></div>
+      <figcaption>Emblem only</figcaption>
+    </figure>
+  </div>
+
+  <h2>Files</h2>
+  <ul class="files">
+    <li><a href="logo/cabhbe-2026-logo.png" download>cabhbe-2026-logo.png</a><span>PNG · 8192 × 4505 · purple background</span></li>
+    <li><a href="logo/cabhbe-2026-logo-transparent.png" download>cabhbe-2026-logo-transparent.png</a><span>PNG · 8192 × 4505 · transparent</span></li>
+    <li><a href="logo/cabhbe-2026-mark.png" download>cabhbe-2026-mark.png</a><span>PNG · 4096 × 4280 · emblem on purple</span></li>
+    <li><a href="logo/cabhbe-2026-logo.svg" download>cabhbe-2026-logo.svg</a><span>SVG · vector, any size</span></li>
+    <li><a href="logo/cabhbe-2026-logo-transparent.svg" download>cabhbe-2026-logo-transparent.svg</a><span>SVG · vector, transparent</span></li>
+    <li><a href="logo/cabhbe-2026-mark.svg" download>cabhbe-2026-mark.svg</a><span>SVG · emblem, transparent</span></li>
+  </ul>
+</main>
+</body>
+</html>
