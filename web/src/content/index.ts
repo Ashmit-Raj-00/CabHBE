@@ -7,3 +7,4 @@ export * from "./people";
 export * from "./venue";
 export * from "./explore";
 export * from "./faq";
+export * from "./startup-conclave";

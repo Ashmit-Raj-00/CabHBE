@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { event } from "@/content";
+import { event, startupConclave } from "@/content";
 import { MailIcon, WhatsappIcon } from "./icons";
 
 export function Footer() {
@@ -65,6 +65,13 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-white/20">
+        <p className="mx-auto max-w-6xl px-6 pt-6 text-center text-sm text-white/80 sm:px-8">
+          Also at GIET University: the{" "}
+          <Link href="/startup-conclave" className="font-semibold text-white underline underline-offset-4 hover:text-gold">
+            Biotech Startup Conclave &amp; Workshop
+          </Link>{" "}
+          ({startupConclave.dates}), sponsored by our industry partners and supported by BIRAC.
+        </p>
         <p className="mx-auto max-w-6xl px-6 py-6 text-center text-sm text-white/70 sm:px-8">
           © 2026 GIET University, Department of Biotechnology. All rights reserved.
         </p>
