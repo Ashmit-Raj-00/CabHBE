@@ -12,8 +12,6 @@ export const startupConclave = {
   tagline: "From Ideas to Impact",
   pillars: ["Connecting Innovators", "Empowering Startups", "Building a Sustainable Bioeconomy"],
   dates: formatDateRange(conclaveDates.start, conclaveDates.end),
-  // Conclave opens 9:00 IST on day one; used by the countdown.
-  startsAt: `${conclaveDates.start}T09:00:00+05:30`,
   venue: "GIET University, Gunupur, Odisha, India",
   organizer: "E-YUVA Center, GIET University",
   organizerDetail: "A Biotech Pre-incubation Center of BIRAC at GIET University, Odisha",

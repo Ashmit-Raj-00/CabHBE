@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { Reveal } from "@/components/Reveal";
-import { ConclaveCountdown } from "@/components/ConclaveCountdown";
 import {
   bankDetails,
   conclaveAccommodation,
@@ -119,7 +118,7 @@ export default function StartupConclavePage() {
           <path d="M260 20c0 60-120 60-120 120s120 60 120 120s-120 60-120 120" stroke="#ff8a9a" strokeWidth="5" strokeLinecap="round" />
         </svg>
 
-        <div className="relative mx-auto grid max-w-6xl gap-12 px-6 py-14 sm:px-8 sm:py-20 lg:grid-cols-[1.25fr_1fr] lg:items-center">
+        <div className="relative mx-auto grid max-w-6xl gap-12 px-6 py-14 sm:px-8 sm:py-20 ">
           <div className="hero-in flex flex-col gap-6">
             <div className="flex flex-wrap items-center gap-3">
               <span className="inline-flex items-center gap-2 rounded-full bg-red px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.16em]">
@@ -158,27 +157,6 @@ export default function StartupConclavePage() {
             </div>
           </div>
 
-          <div className="hero-card-in relative">
-            <div aria-hidden className="absolute -inset-4 rounded-[32px] bg-red/30 blur-3xl" />
-            <div className="relative rounded-[28px] border border-white/10 bg-white/[0.04] p-6 backdrop-blur-md sm:p-7">
-              <div className="text-xs font-bold uppercase tracking-[0.2em] text-white/60">Conclave begins in</div>
-              <div className="mt-4">
-                <ConclaveCountdown to={s.startsAt} />
-              </div>
-              <div className="mt-6 flex items-center gap-4 rounded-2xl bg-white p-4">
-                <Image src={s.supporter.logo} alt="BIRAC" width={128} height={100} className="h-14 w-auto shrink-0" />
-                <div className="text-ink">
-                  <div className="text-[11px] font-bold uppercase tracking-[0.16em] text-ink-soft">Supported by</div>
-                  <div className="text-sm font-semibold leading-snug">{s.supporter.name}</div>
-                </div>
-              </div>
-              <div className="mt-3 rounded-2xl border border-white/10 p-4">
-                <div className="text-[11px] font-bold uppercase tracking-[0.16em] text-white/50">Organized by</div>
-                <div className="mt-1 font-semibold">{s.organizer}</div>
-                <div className="text-sm text-white/60">{s.organizerDetail}</div>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* Partner strip */}
