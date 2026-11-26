@@ -6,6 +6,7 @@ import { Section, SectionHeading } from "@/components/Section";
 import { StatCard, DateTimeline, Badge, FeeCard } from "@/components/cards";
 import { ThemeBook } from "@/components/ThemeBook";
 import { AdvisorMarquee } from "@/components/AdvisorMarquee";
+import { ConclavePopup } from "@/components/ConclavePopup";
 import {
   CalendarIcon,
   PinIcon,
@@ -32,6 +33,7 @@ const abstractDeadline = formatDate(dates.abstractDeadline);
 export default function Home() {
   return (
     <>
+      <ConclavePopup />
       {/* HERO */}
       <section className="relative overflow-hidden bg-forest py-8 sm:py-12">
         <div

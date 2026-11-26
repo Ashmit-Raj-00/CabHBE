@@ -435,3 +435,18 @@ body {
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+/* Startup Conclave promo popup + page */
+@keyframes popup-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes popup-rise { from { opacity: 0; transform: translateY(24px) scale(0.97); } to { opacity: 1; transform: none; } }
+.popup-fade { animation: popup-fade 0.3s ease-out both; }
+.popup-rise { animation: popup-rise 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.animate-marquee { animation: marquee 28s linear infinite; }
+.animate-marquee:hover { animation-play-state: paused; }
+
+.bg-dot-grid {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+  background-size: 22px 22px;
+}

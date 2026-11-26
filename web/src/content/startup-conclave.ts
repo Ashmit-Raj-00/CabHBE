@@ -12,6 +12,8 @@ export const startupConclave = {
   tagline: "From Ideas to Impact",
   pillars: ["Connecting Innovators", "Empowering Startups", "Building a Sustainable Bioeconomy"],
   dates: formatDateRange(conclaveDates.start, conclaveDates.end),
+  // Conclave opens 9:00 IST on day one; used by the countdown.
+  startsAt: `${conclaveDates.start}T09:00:00+05:30`,
   venue: "GIET University, Gunupur, Odisha, India",
   organizer: "E-YUVA Center, GIET University",
   organizerDetail: "A Biotech Pre-incubation Center of BIRAC at GIET University, Odisha",
@@ -133,6 +135,14 @@ export const conclaveReplyChecklist = [
   "Names and contact numbers of the team members attending",
   "Whether you need a power point or electricity connection at your stall",
   "Title of your startup journey talk (if interested)",
+];
+
+// Headline numbers for the stats band.
+export const conclaveStats = [
+  { value: "2", label: "Days of exhibition, talks & workshops" },
+  { value: "500+", label: "Students, researchers, faculty & delegates" },
+  { value: "6", label: "Stakeholder groups under one roof" },
+  { value: "₹1,000", label: "Stall fee, with meals & conference access" },
 ];
 
 // Industry partners sponsoring the conclave. Put the logo in public/images/startup/.
