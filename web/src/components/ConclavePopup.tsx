@@ -59,15 +59,17 @@ export function ConclavePopup() {
         aria-labelledby="conclave-popup-title"
         className="popup-rise relative grid w-full max-w-3xl overflow-hidden rounded-3xl bg-[#120b10] text-white shadow-[0_40px_120px_-20px_rgba(184,22,43,0.6)] ring-1 ring-white/10 sm:grid-cols-[0.9fr_1.1fr]"
       >
-        <div className="relative hidden sm:block">
-          <Image
-            src={s.poster}
-            alt=""
-            fill
-            sizes="340px"
-            className="object-cover object-top"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#120b10]" />
+        <div className="relative hidden flex-col justify-between overflow-hidden bg-gradient-to-br from-red via-[#7a0f1f] to-[#120b10] p-7 sm:flex">
+          <div aria-hidden className="bg-dot-grid pointer-events-none absolute inset-0 opacity-50" />
+          <div className="relative w-fit rounded-xl bg-white p-2.5">
+            <Image src={s.supporter.logo} alt="BIRAC" width={128} height={100} className="h-12 w-auto" />
+          </div>
+          <div className="relative">
+            <div className="text-xs font-bold uppercase tracking-[0.2em] text-white/70">Save the date</div>
+            <div className="mt-1 font-heading text-5xl font-bold leading-none">7–8</div>
+            <div className="font-heading text-2xl">December 2026</div>
+            <div className="mt-4 text-sm text-white/75">Supported by BIRAC · Organized by E-YUVA Center, GIET University</div>
+          </div>
         </div>
 
         <div className="relative p-6 sm:p-8">

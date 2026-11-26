@@ -44,7 +44,9 @@ export const startupConclave = {
       href: "https://forms.gle/6yFkVbmC4J3s4v4w9",
     },
   ],
-  poster: "/images/startup/conclave-poster.webp",
+  // The saved poster still shows the old 9–10 Dec dates. Export the 7–8 Dec flyer
+  // to this path and set `poster` back to it to show it on the page again.
+  poster: "" as string, // e.g. "/images/startup/conclave-poster.webp"
 };
 
 export const conclaveHighlights = [

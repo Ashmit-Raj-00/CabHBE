@@ -400,6 +400,7 @@ export default function StartupConclavePage() {
               ))}
             </div>
           </div>
+          {s.poster ? (
           <a
             href={s.poster}
             target="_blank"
@@ -414,6 +415,25 @@ export default function StartupConclavePage() {
               className="h-auto w-full"
             />
           </a>
+          ) : (
+            <div className="relative overflow-hidden rounded-3xl bg-[#0f0a0e] p-8 text-white">
+              <div aria-hidden className="bg-dot-grid pointer-events-none absolute inset-0 opacity-50" />
+              <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-red/50 blur-3xl" />
+              <div className="relative">
+                <div className="text-xs font-bold uppercase tracking-[0.2em] text-[#ff8a9a]">Venue</div>
+                <div className="mt-2 font-heading text-3xl font-bold">GIET University</div>
+                <div className="text-white/70">Gunupur, Odisha, India</div>
+                <div className="mt-6 text-xs font-bold uppercase tracking-[0.2em] text-[#ff8a9a]">Conclave &amp; workshop</div>
+                <div className="mt-2 font-heading text-3xl font-bold">{s.dates}</div>
+                <div className="mt-6 border-t border-white/10 pt-5 text-sm text-white/70">
+                  Queries &amp; accommodation: {s.contact.role}
+                  <a href={`tel:${s.contact.phone.replace(/\s/g, "")}`} className="mt-1 block font-heading text-2xl text-white hover:underline">
+                    {s.contact.phone}
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </Block>
 
