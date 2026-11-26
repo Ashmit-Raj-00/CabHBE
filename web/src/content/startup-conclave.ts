@@ -147,7 +147,32 @@ export const conclaveStats = [
 
 // Industry partners sponsoring the conclave. Put the logo in public/images/startup/.
 export const conclavePartners = [
-  { name: "Panacea Biotec", logo: "/images/startup/panacea-biotec.png", width: 324, height: 210 },
-  { name: "Ceramat", logo: "/images/startup/ceramat.png", width: 360, height: 114 },
-  { name: "RR Animal Health Care Ltd.", logo: "/images/startup/rr-animal-health-care.png", width: 420, height: 192 },
+  {
+    name: "Panacea Biotec",
+    tagline: "Innovation in support of life",
+    logo: "/images/startup/panacea-biotec.png",
+    width: 800,
+    height: 388,
+    fit: "",
+    url: "https://www.panaceabiotec.com",
+  },
+  {
+    name: "Ceramat",
+    tagline: "Advanced bioceramics",
+    logo: "/images/startup/ceramat.png",
+    width: 349,
+    height: 90,
+    // Wide wordmark: shrink so it sits at the same visual weight as the others.
+    fit: "max-w-[78%]",
+    url: "",
+  },
+  {
+    name: "RR Animal Health Care Ltd.",
+    tagline: "Unique solutions for animal health",
+    logo: "/images/startup/rr-animal-health-care.png",
+    width: 318,
+    height: 109,
+    fit: "",
+    url: "https://rrahc.in",
+  },
 ];

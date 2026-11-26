@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { Reveal } from "@/components/Reveal";
+import { PartnerMarquee } from "@/components/PartnerMarquee";
 import {
   bankDetails,
   conclaveAccommodation,
@@ -102,52 +103,88 @@ export default function StartupConclavePage() {
   return (
     <>
       {/* HERO */}
-      <section className={`relative overflow-hidden ${DARK} text-white`}>
-        <div aria-hidden className="bg-dot-grid pointer-events-none absolute inset-0 opacity-60" />
-        <div
+      <section className={`relative isolate overflow-hidden ${DARK} text-white`}>
+        <div aria-hidden className="bg-dot-grid pointer-events-none absolute inset-0 opacity-50" />
+        <div aria-hidden className="animate-orb-a pointer-events-none absolute -left-40 top-24 h-[28rem] w-[28rem] rounded-full bg-red/50 blur-[120px]" />
+        <div aria-hidden className="animate-orb-b pointer-events-none absolute -right-32 bottom-0 h-[26rem] w-[26rem] rounded-full bg-[#ff4d67]/35 blur-[120px]" />
+        <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0f0a0e] to-transparent" />
+
+        {/* Floating molecule network, decorative */}
+        <svg
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_70%_at_85%_20%,rgba(184,22,43,0.55),transparent_65%),radial-gradient(50%_60%_at_0%_100%,rgba(184,22,43,0.35),transparent_60%)]"
-        />
+          viewBox="0 0 300 300"
+          fill="none"
+          className="animate-floaty pointer-events-none absolute right-[4%] top-56 hidden h-72 w-72 opacity-40 lg:block"
+        >
+          {[
+            [150, 40, 60, 110], [150, 40, 240, 110], [60, 110, 90, 210], [240, 110, 210, 210],
+            [90, 210, 210, 210], [60, 110, 240, 110], [150, 40, 150, 150], [150, 150, 90, 210], [150, 150, 210, 210],
+          ].map(([x1, y1, x2, y2], i) => (
+            <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#ff8a9a" strokeOpacity="0.5" strokeWidth="1.5" />
+          ))}
+          {[[150, 40, 9], [60, 110, 7], [240, 110, 7], [90, 210, 8], [210, 210, 8], [150, 150, 11]].map(([cx, cy, r], i) => (
+            <circle key={i} cx={cx} cy={cy} r={r} fill={i === 5 ? "#ff4d67" : "#fff"} className="animate-pulse" style={{ animationDelay: `${i * 0.3}s` }} />
+          ))}
+        </svg>
         <svg
           aria-hidden
           viewBox="0 0 400 400"
           fill="none"
-          className="animate-floaty pointer-events-none absolute -left-24 top-20 h-96 w-96 opacity-[0.12]"
+          className="animate-floaty pointer-events-none absolute -left-24 top-48 hidden h-96 w-96 opacity-[0.14] lg:block"
         >
           <path d="M140 20c0 60 120 60 120 120s-120 60-120 120s120 60 120 120" stroke="#fff" strokeWidth="5" strokeLinecap="round" />
           <path d="M260 20c0 60-120 60-120 120s120 60 120 120s-120 60-120 120" stroke="#ff8a9a" strokeWidth="5" strokeLinecap="round" />
         </svg>
 
-        <div className="relative mx-auto grid max-w-6xl gap-12 px-6 py-14 sm:px-8 sm:py-20 ">
-          <div className="hero-in flex flex-col gap-6">
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="inline-flex items-center gap-2 rounded-full bg-red px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.16em]">
-                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white" aria-hidden />
+        {/* Top floating partner slider */}
+        <div className="relative border-b border-white/10 bg-white/[0.03] pt-5 backdrop-blur-sm">
+          <div className="flex items-center justify-center gap-3 text-[11px] font-bold uppercase tracking-[0.28em] text-white/60">
+            <span className="h-px w-10 bg-gradient-to-r from-transparent to-[#ff8a9a]" aria-hidden />
+            Our industry partners
+            <span className="h-px w-10 bg-gradient-to-l from-transparent to-[#ff8a9a]" aria-hidden />
+          </div>
+          <PartnerMarquee />
+        </div>
+
+        <div className="relative mx-auto max-w-5xl px-6 pb-20 pt-14 text-center sm:px-8 sm:pb-28 sm:pt-20">
+          <div className="hero-in flex flex-col items-center gap-7">
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <span className="inline-flex items-center gap-2 rounded-full bg-red px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.16em] shadow-[0_0_30px_rgba(255,77,103,0.6)]">
+                <span className="relative flex h-2 w-2" aria-hidden>
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
+                </span>
                 Registrations open
               </span>
-              <span className="text-sm font-semibold text-white/70">Supported by BIRAC · Govt. of India</span>
+              <span className="rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-xs font-semibold text-white/80">
+                Supported by BIRAC · Govt. of India
+              </span>
             </div>
 
-            <h1 className="font-heading text-[40px] font-bold leading-[1.02] tracking-tight sm:text-[64px]">
-              Biotech
-              <br />
-              <span className="bg-gradient-to-r from-[#ff6b80] via-[#ff9aa8] to-white bg-clip-text text-transparent">
+            <h1 className="font-heading text-[44px] font-bold leading-[1] tracking-tight sm:text-[84px]">
+              Biotech{" "}
+              <span className="text-shimmer bg-[linear-gradient(110deg,#ff4d67,45%,#ffffff,55%,#ff8a9a)] bg-[length:250%_100%] bg-clip-text text-transparent">
                 Startup Conclave
               </span>
               <br />
-              <span className="text-white/90">&amp; Workshop 2026</span>
+              <span className="text-white/90">&amp; Workshop </span>
+              <span className="text-stroke text-transparent">2026</span>
             </h1>
 
-            <p className="max-w-xl text-lg leading-relaxed text-white/75 sm:text-xl">
+            <p className="max-w-2xl text-lg leading-relaxed text-white/70 sm:text-xl">
               <span className="font-semibold text-white">{s.tagline}.</span> {s.pillars.join(" · ")}.
             </p>
 
-            <div className="flex flex-wrap gap-x-6 gap-y-2 text-base font-semibold">
-              <span className="flex items-center gap-2"><CalendarIcon size={20} className="text-[#ff8a9a]" /> {s.dates}</span>
-              <span className="flex items-center gap-2"><PinIcon size={20} className="text-[#ff8a9a]" /> {s.venue}</span>
+            <div className="flex flex-wrap justify-center gap-3 text-base font-semibold">
+              <span className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 backdrop-blur">
+                <CalendarIcon size={20} className="text-[#ff8a9a]" /> {s.dates}
+              </span>
+              <span className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 backdrop-blur">
+                <PinIcon size={20} className="text-[#ff8a9a]" /> {s.venue}
+              </span>
             </div>
 
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap justify-center gap-3">
               <CtaLink href={conclaveForm.href}>
                 Register for the Conclave <ArrowRightIcon size={20} />
               </CtaLink>
@@ -155,18 +192,9 @@ export default function StartupConclavePage() {
                 Free CABHBE-2026 pass
               </CtaLink>
             </div>
-          </div>
 
-        </div>
-
-        {/* Partner strip */}
-        <div className="relative border-t border-white/10 bg-white">
-          <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6 py-6 sm:flex-row sm:gap-10 sm:px-8">
-            <div className="shrink-0 text-xs font-bold uppercase tracking-[0.2em] text-ink-soft">Industry partners</div>
-            <div className="flex flex-1 flex-wrap items-center justify-center gap-x-12 gap-y-4 sm:justify-around">
-              {conclavePartners.map((p) => (
-                <Image key={p.name} src={p.logo} alt={p.name} width={p.width} height={p.height} className="h-12 w-auto sm:h-14" />
-              ))}
+            <div className="mt-2 text-sm text-white/50">
+              Organized by <span className="font-semibold text-white/80">{s.organizer}</span> · {s.organizerDetail}
             </div>
           </div>
         </div>
@@ -201,7 +229,7 @@ export default function StartupConclavePage() {
               return (
                 <div
                   key={h.title}
-                  className="group relative overflow-hidden rounded-2xl border border-border bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-red/40 hover:shadow-[0_24px_50px_-24px_rgba(184,22,43,0.45)]"
+                  className="glow-card group relative overflow-hidden rounded-2xl border border-border bg-white p-6 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_30px_60px_-24px_rgba(184,22,43,0.5)]"
                 >
                   <span className="absolute right-4 top-3 font-heading text-5xl font-bold text-red/[0.07]" aria-hidden>
                     0{i + 1}
@@ -259,7 +287,7 @@ export default function StartupConclavePage() {
           {conclaveArrangements.map((a, i) => (
             <div
               key={a.title}
-              className="relative rounded-2xl border border-border bg-white p-6 pl-7 transition hover:shadow-[0_20px_40px_-24px_rgba(20,20,22,0.3)]"
+              className="glow-card relative rounded-2xl border border-border bg-white p-6 pl-7 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_30px_60px_-24px_rgba(184,22,43,0.45)]"
             >
               <span className="absolute left-0 top-6 h-10 w-1 rounded-r-full bg-red" aria-hidden />
               <div className="text-xs font-bold tracking-[0.18em] text-red">{String(i + 1).padStart(2, "0")}</div>
