@@ -30,7 +30,7 @@ import {
 
 export const metadata: Metadata = {
   title: "Biotech Startup Conclave & Workshop 2026 — GIET University",
-  description: `${startupConclave.name}, ${startupConclave.dates}, ${startupConclave.venue}. Supported by BIRAC.`,
+  description: `${startupConclave.name}, ${startupConclave.dates}, ${startupConclave.venue}. Organized by E-YUVA Center, GIET University; supported by BIRAC.`,
 };
 
 const DARK = "bg-[#0f0a0e]";
@@ -156,8 +156,9 @@ export default function StartupConclavePage() {
                 </span>
                 Registrations open
               </span>
-              <span className="rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-xs font-semibold text-white/80">
-                Supported by BIRAC · Govt. of India
+              <span className="rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-xs font-semibold text-white/85">
+                An <span className="text-[#ffb347]">E-YUVA Center</span> initiative · Supported by{" "}
+                <span className="text-[#7cc4ff]">BIRAC</span>
               </span>
             </div>
 
@@ -193,8 +194,28 @@ export default function StartupConclavePage() {
               </CtaLink>
             </div>
 
-            <div className="mt-2 text-sm text-white/50">
-              Organized by <span className="font-semibold text-white/80">{s.organizer}</span> · {s.organizerDetail}
+            <div className="mt-4 grid w-full max-w-4xl gap-4 text-left md:grid-cols-2">
+              {/* Organized by — E-YUVA */}
+              <div className="relative overflow-hidden rounded-2xl bg-white p-5 shadow-[0_30px_60px_-25px_rgba(255,179,71,0.55)] ring-2 ring-[#ffb347]/70">
+                <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-ink-soft">Organized by</div>
+                <div className="mt-3 flex flex-wrap items-center gap-2">
+                  <span className="rounded-md bg-[#4b1d8f] px-2.5 py-1 font-heading text-2xl font-bold leading-none text-white">E-YUVA</span>
+                  <span className="font-heading text-2xl font-bold leading-none text-[#f28c1b]">CENTER</span>
+                </div>
+                <div className="mt-1 font-heading text-xl font-bold text-[#1a2a6c]">GIET UNIVERSITY</div>
+                <div className="mt-1 text-sm text-ink-mid">{s.organizerDetail}</div>
+              </div>
+              {/* Supported by — BIRAC */}
+              <div className="relative overflow-hidden rounded-2xl bg-white p-5 shadow-[0_30px_60px_-25px_rgba(124,196,255,0.55)] ring-2 ring-[#7cc4ff]/70">
+                <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-ink-soft">Supported by</div>
+                <div className="mt-3 flex items-center gap-4">
+                  <Image src={s.supporter.logo} alt="BIRAC logo" width={128} height={100} className="h-16 w-auto shrink-0" />
+                  <div>
+                    <div className="font-semibold leading-snug text-[#1a2a6c]">{s.supporter.name}</div>
+                    <div className="text-sm text-ink-mid">{s.supporter.detail}</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

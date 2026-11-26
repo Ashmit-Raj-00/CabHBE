@@ -70,7 +70,7 @@ export function Footer() {
           <Link href="/startup-conclave" className="font-semibold text-white underline underline-offset-4 hover:text-gold">
             Biotech Startup Conclave &amp; Workshop
           </Link>{" "}
-          ({startupConclave.dates}), sponsored by our industry partners and supported by BIRAC.
+          ({startupConclave.dates}), organized by the E-YUVA Center and supported by BIRAC.
         </p>
         <p className="mx-auto max-w-6xl px-6 py-6 text-center text-sm text-white/70 sm:px-8">
           © 2026 GIET University, Department of Biotechnology. All rights reserved.
