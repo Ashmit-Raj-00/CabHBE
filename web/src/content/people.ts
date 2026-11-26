@@ -128,7 +128,6 @@ export const committee: CommitteeGroup[] = [
   {
     title: "Organizing Committee",
     members: [
-      { name: "Dr. Namita Panigrahi", role: "Asst. Prof., School of Science" },
       { name: "Dr. Y. Aparna", role: "Ast. Prof., Dept. of Biotechnology" },
       { name: "Mrs. Ghanistha Prusty", role: "Asst. Prof., Dept. of Life Science" },
       { name: "Dr. Jitendra Kumar Sahoo", role: "Assistant Prof., Dept. of Chemistry" },
