@@ -12,6 +12,7 @@ import {
   conclavePartners,
   conclaveReplyChecklist,
   conclaveStallFee,
+  conclaveStartups,
   conclaveStats,
   startupConclave,
 } from "@/content";
@@ -92,6 +93,16 @@ function CtaLink({ href, children, tone = "red" }: { href: string; children: Rea
       {children}
     </a>
   );
+}
+
+function monogram(name: string) {
+  return name
+    .replace(/\b(pvt|private|ltd|limited|technology|techno|and)\b\.?/gi, "")
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0].toUpperCase())
+    .join("");
 }
 
 /* ── Page ──────────────────────────────────────────────────────────────── */
@@ -295,6 +306,71 @@ export default function StartupConclavePage() {
             );
           })}
         </div>
+      </Block>
+
+      {/* REGISTERED STARTUPS */}
+      <Block id="registered-startups" className="bg-white">
+        <div aria-hidden className="pointer-events-none absolute -left-32 top-10 h-80 w-80 rounded-full bg-red/10 blur-3xl" />
+        <div aria-hidden className="pointer-events-none absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-[#ff8a9a]/15 blur-3xl" />
+        <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
+          <Heading
+            eyebrow="Registered startups"
+            title={<>Meet the startups <span className="text-red">exhibiting</span></>}
+            sub="Biotech ventures that have registered for the conclave so far."
+          />
+          <div className="mb-10 inline-flex items-center gap-3 rounded-2xl border border-border bg-white px-5 py-3 shadow-[0_18px_40px_-24px_rgba(184,22,43,0.5)]">
+            <span className="relative flex h-2.5 w-2.5" aria-hidden>
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
+            </span>
+            <span className="font-heading text-3xl font-bold text-ink">{conclaveStartups.length}</span>
+            <span className="text-sm leading-tight text-ink-mid">
+              registered
+              <br />
+              and counting
+            </span>
+          </div>
+        </div>
+        <ol className="stagger grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {conclaveStartups.map((st, i) => (
+            <li
+              key={st.name}
+              className="glow-card group relative flex flex-col overflow-hidden rounded-3xl border border-border bg-white transition-all duration-300 hover:-translate-y-2 hover:border-red/30 hover:shadow-[0_30px_60px_-24px_rgba(184,22,43,0.5)]"
+            >
+              <span className="absolute left-4 top-4 z-10 rounded-full bg-ink/[0.06] px-2.5 py-1 text-[11px] font-bold tracking-[0.14em] text-ink-soft">
+                #{String(i + 1).padStart(2, "0")}
+              </span>
+              <div className="relative grid h-40 place-items-center overflow-hidden border-b border-border bg-gradient-to-br from-white to-wash px-6 pt-6">
+                {st.logo ? (
+                  <Image
+                    src={st.logo}
+                    alt={`${st.name} logo`}
+                    width={st.width}
+                    height={st.height}
+                    className="h-auto max-h-24 w-auto max-w-full object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-110"
+                  />
+                ) : (
+                  <div
+                    aria-hidden
+                    className="grid h-20 w-20 place-items-center rounded-2xl bg-gradient-to-br from-red to-[#6e0c1a] font-heading text-3xl font-bold text-white shadow-lg shadow-red/30 transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110"
+                  >
+                    {monogram(st.name)}
+                  </div>
+                )}
+              </div>
+              <div className="flex flex-1 flex-col justify-between gap-3 p-5">
+                <h3 className="font-heading text-lg font-semibold leading-snug text-ink">{st.name}</h3>
+                <span className="inline-flex items-center gap-1.5 self-start rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-bold text-emerald-700">
+                  <CheckIcon size={14} /> Registered
+                </span>
+              </div>
+              <span
+                aria-hidden
+                className="absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 bg-gradient-to-r from-red to-[#ff8a9a] transition-transform duration-500 group-hover:scale-x-100"
+              />
+            </li>
+          ))}
+        </ol>
       </Block>
 
       {/* FOR PARTICIPATING STARTUPS */}

@@ -176,3 +176,21 @@ export const conclavePartners = [
     url: "https://rrahc.in",
   },
 ];
+
+// Startups registered for the conclave. Put logos in public/images/startup/registered/.
+// Leave `logo` empty to show a monogram tile until the logo arrives.
+export const conclaveStartups: {
+  name: string;
+  logo: string;
+  width: number;
+  height: number;
+}[] = [
+  { name: "Scylene Technology and Life", logo: "", width: 0, height: 0 },
+  { name: "Sichern Techno Health Pvt. Ltd.", logo: "", width: 0, height: 0 },
+  { name: "Polyorbit Pvt. Ltd.", logo: "/images/startup/registered/polyorbit.jpg", width: 200, height: 200 },
+  { name: "BioPioneer Pvt. Ltd.", logo: "/images/startup/registered/biopioneer.webp", width: 775, height: 259 },
+  { name: "EarlyScreenDx Pvt. Ltd.", logo: "", width: 0, height: 0 },
+  { name: "Kassvita Private Limited", logo: "", width: 0, height: 0 },
+  { name: "Affinity Minds Pvt. Ltd.", logo: "/images/startup/registered/affinity-minds.jpg", width: 200, height: 200 },
+  { name: "UBC Theraputics Pvt. Ltd.", logo: "/images/startup/registered/ubc-therapeutics.webp", width: 805, height: 447 },
+];
