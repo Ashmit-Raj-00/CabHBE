@@ -21,7 +21,7 @@ import {
   themes,
   importantDates,
   trustBadges,
-  advisoryPanel,
+  speakers,
   feeTiers,
   earlyBirdDeadline,
   dates,
@@ -185,9 +185,9 @@ export default function Home() {
       <Section>
         <SectionHeading
           title="Guest Speakers"
-          subtitle="Joining CABHBE-26 from India, Indonesia, Ireland, Vietnam, Bangladesh and Taiwan. Tap About on any card to read more."
+          subtitle="Joining CABHBE-26 from India, Indonesia, Ireland and Bangladesh. Tap About on any card to read more."
         />
-        <AdvisorMarquee advisors={advisoryPanel} />
+        <AdvisorMarquee advisors={speakers} />
         <div className="mt-6 text-center">
           <Button href="/about#committee" variant="outline">
             See the Full Committee <ArrowRightIcon size={20} />

@@ -88,6 +88,30 @@ export const advisoryPanel: Advisor[] = [
   },
 ];
 
+// Guest speakers shown on the home page. Reuses advisory-panel entries by name
+// so details and photos stay in one place; add new speakers inline below.
+const fromPanel = (name: string): Advisor => {
+  const a = advisoryPanel.find((p) => p.name === name);
+  if (!a) throw new Error(`Speaker not found in advisoryPanel: ${name}`);
+  return a;
+};
+
+export const speakers: Advisor[] = [
+  fromPanel("Dr. Upendra Kumar Singh"),
+  fromPanel("Prof. Misri Gozan"),
+  fromPanel("Prof. (Dr.) Amit Chattopadhyay"),
+  fromPanel("Prof. (Dr.) Ashok Kumar"),
+  fromPanel("Prof. (Dr.) Syamal Roy"),
+  fromPanel("Prof. (Dr.) Chowdhury Rafiqul Ahsan"),
+  {
+    name: "Dr. Nivedita Jena",
+    detail: "Chief Operating Officer, DBT-ILS Bioincubator, BRIC–Institute of Life Sciences, Bhubaneswar",
+    country: "India",
+    // Add a portrait at /images/advisors/nivedita-jena.webp and set `image` to show it.
+    bio: "Chief Operating Officer (COO) of the DBT-ILS Bioincubator at the BRIC–Institute of Life Sciences (ILS) in Bhubaneswar, Odisha.",
+  },
+];
+
 export type CommitteeGroup = {
   title: string;
   members: { name: string; role?: string; image?: string; bio?: string }[];
